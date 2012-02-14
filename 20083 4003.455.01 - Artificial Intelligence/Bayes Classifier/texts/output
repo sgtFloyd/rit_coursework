@@ -1,0 +1,69 @@
+Opening: texts/a1.txt
+average word length: 4.04511704247919 +\- 2.4941011525991326
+average sentence length: 21.386544086920185 +\- 19.218077299176947
+average commas per sentence: 1.5562055996656916 +\- 1.9752639084648997
+average semicolons per sentence: 0.3155035520267447 +\- 0.6309985248888875
+average contractions per sentence: 0.00961136648558295 +\- 0.1017583368506468
+
+Opening: texts/a2.txt
+average word length: 4.220563097033685 +\- 2.5670631972526783
+average sentence length: 22.348314606741575 +\- 17.303358200783396
+average commas per sentence: 1.5598314606741572 +\- 1.7887959589708282
+average semicolons per sentence: 0.25533707865168537 +\- 0.5238413097863422
+average contractions per sentence: 0.006741573033707865 +\- 0.0851934385944587
+
+Opening: texts/a3.txt
+average word length: 4.038268599352758 +\- 2.4404601750576114
+average sentence length: 19.48128158015618 +\- 17.62966228898046
+average commas per sentence: 1.380110243454295 +\- 1.8675060037685458
+average semicolons per sentence: 0.27021129995406523 +\- 0.5864799671440538
+average contractions per sentence: 0.00964630225080386 +\- 0.10233252931569503
+
+Opening: texts/d1.txt
+average word length: 3.966386687047922 +\- 2.448432183783702
+average sentence length: 17.94598416289593 +\- 15.687638544529985
+average commas per sentence: 1.7225678733031675 +\- 1.8473136209565268
+average semicolons per sentence: 0.13150452488687783 +\- 0.4474191943802605
+average contractions per sentence: 0.1529977375565611 +\- 0.4757193362400849
+
+Opening: texts/d2.txt
+average word length: 3.9890393981351484 +\- 2.4374267028000487
+average sentence length: 18.71674519753534 +\- 17.08997082233277
+average commas per sentence: 1.4449075752084088 +\- 1.8484024185935537
+average semicolons per sentence: 0.07593330916998912 +\- 0.35799367009052646
+average contractions per sentence: 0.09151866618339978 +\- 0.325541641267108
+
+Opening: texts/d3.txt
+average word length: 3.9302216326756203 +\- 2.297131799324246
+average sentence length: 17.54898157129001 +\- 17.57542632396853
+average commas per sentence: 1.9025218234723569 +\- 2.287888967901682
+average semicolons per sentence: 0.11299709020368574 +\- 0.41706544782610744
+average contractions per sentence: 0.1037827352085354 +\- 0.3576722450124679
+
+Opening: texts/t1.txt
+average word length: 4.035208047553726 +\- 2.336984110486191
+average sentence length: 19.411242603550296 +\- 17.082625284821315
+average commas per sentence: 1.5029585798816567 +\- 1.6609837405736556
+average semicolons per sentence: 0.21005917159763313 +\- 0.5104986505744811
+average contractions per sentence: 0.08284023668639054 +\- 0.31566813416211054
+
+Opening: texts/t2.txt
+average word length: 3.9390548614883216 +\- 2.3459792542354485
+average sentence length: 16.952117863720073 +\- 14.52295241709123
+average commas per sentence: 1.0331491712707181 +\- 1.271158543300031
+average semicolons per sentence: 0.14548802946593 +\- 0.5487411437632002
+average contractions per sentence: 0.20626151012891344 +\- 0.4984297827891102
+
+Opening: texts/t3.txt
+average word length: 3.9505809677893806 +\- 2.3197820403624503
+average sentence length: 22.563053097345133 +\- 20.730583355366967
+average commas per sentence: 1.4734513274336283 +\- 1.913321612474956
+average semicolons per sentence: 0.31194690265486724 +\- 0.6168996969676068
+average contractions per sentence: 0.0918141592920354 +\- 0.33816825808015183
+
+Opening: texts/t4.txt
+average word length: 3.567597482263829 +\- 1.9594911707896283
+average sentence length: 19.770102820986025 +\- 17.515911411055757
+average commas per sentence: 1.2710255734247298 +\- 1.6374043452534368
+average semicolons per sentence: 0.2364882678618508 +\- 0.5919020322206183
+average contractions per sentence: 0.4980226733456367 +\- 0.7834693322537668

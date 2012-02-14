@@ -1,0 +1,44 @@
+Bayes Classifier for classifying text
+Learner.java, Classifier.java, Crawler.java
+
+Learner Usage:
+	- Run the Learner with any number of files specified on the command line.
+		example: java Learner file1.txt file2.txt file3.txt
+	- The program will prompt for a known author for each file. The input is
+	  case sensitive. Any differences between strings will create a new entry
+	  for a new author.
+	- Allow the program to run. Depending on the number and size of input files
+	  this could take from a few seconds to several minutes.
+	- When the program finishes, it will print a few lines of code in the
+	  terminal. If you wish to update the Classifier with your newly calculated
+	  data, copy and paste this data into the section at the top of the
+	  Classifier, overwriting the previous data there.
+
+Classifier Usage:
+	- Run the Classifier with any number of files specified on the
+	  command line.
+	  	example: java Classifier file1.txt file2.txt file3.txt
+	- The program will run, outputting the name of the author it finds to
+	  be the best match to the input file.
+	- If you notice a large percentage of mis-classified files, use the Learner
+	  to add the new files into the data pool with all previous files.
+
+Classification decision:
+		I chose to use a Bayes Classifier to classify these pieces of text
+	because of the general consistency in writing styles of authors. Even with
+	very large sets of input data, each individual author will have its own
+	unique classification numbers.
+		
+		The attributes I chose to measure were word length, sentence length,
+	commas per sentence and semicolons per sentence. I used mean values and
+	standard deviation values for each attribute. The mean values provided an
+	accurate base to compare to, and the standard deviations were able to keep
+	track how consistent the authors were in their writing styles. A lower
+	standard deviation shows a more consistent attribute. Average word length
+	and average sentence length seem to be the most effective criteria for
+	classifying the documents. Every author has their own unique, personalized
+	values in these categories. The average commas and semicolons per sentence
+	measured the author's style. Authors either like to use semicolons or
+	don't, and it really shows in the resulting data.
+	
+	

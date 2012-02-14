@@ -1,0 +1,16 @@
+delete Game;
+delete Book;
+delete Music;
+delete Movie;
+delete Product;
+delete AddressInformation;
+delete CreditCard;
+delete Customer;
+drop table Game;
+drop table Book;
+drop table Music;
+drop table Movie;
+drop table Product;
+drop table AddressInformation;
+drop table CreditCard;
+drop table Customer;

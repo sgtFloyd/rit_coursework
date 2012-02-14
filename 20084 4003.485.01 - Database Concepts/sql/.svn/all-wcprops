@@ -1,0 +1,47 @@
+K 25
+svn:wc:ra_dav:version-url
+V 26
+/svn/!svn/ver/37/trunk/sql
+END
+movieScript.sql
+K 25
+svn:wc:ra_dav:version-url
+V 42
+/svn/!svn/ver/23/trunk/sql/movieScript.sql
+END
+musicScript.sql
+K 25
+svn:wc:ra_dav:version-url
+V 42
+/svn/!svn/ver/23/trunk/sql/musicScript.sql
+END
+customerScript.sql
+K 25
+svn:wc:ra_dav:version-url
+V 45
+/svn/!svn/ver/23/trunk/sql/customerScript.sql
+END
+dropDatabase.sql
+K 25
+svn:wc:ra_dav:version-url
+V 43
+/svn/!svn/ver/23/trunk/sql/dropDatabase.sql
+END
+procsntriggers.sql
+K 25
+svn:wc:ra_dav:version-url
+V 45
+/svn/!svn/ver/37/trunk/sql/procsntriggers.sql
+END
+gameScript.sql
+K 25
+svn:wc:ra_dav:version-url
+V 41
+/svn/!svn/ver/23/trunk/sql/gameScript.sql
+END
+bookScript.sql
+K 25
+svn:wc:ra_dav:version-url
+V 41
+/svn/!svn/ver/23/trunk/sql/bookScript.sql
+END

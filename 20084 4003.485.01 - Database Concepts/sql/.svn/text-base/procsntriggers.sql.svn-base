@@ -1,0 +1,19 @@
+--update the stock of an item by 5
+CREATE PROCEDURE stock_increase(pID INT)
+	UPDATE Product SET amount_in_stock = amount_in_stock + 5 WHERE id = pID;
+
+--decrease the stock of an item. occurs when a user buys something.
+CREATE PROCEDURE stock_decrease(pID INT)
+	UPDATE Product SET amount_in_stock = amount_in_stock - 1 WHERE id = pID;
+
+--this trigger simply prevents the stock from running out.
+-- adds 5 to the stock whenever an item sells out.
+CREATE TRIGGER purchase_trigger
+    BEFORE UPDATE ON Product
+    REFERENCING NEW ROW AS n, OLD ROW AS o
+    FOR EACH ROW
+   	BEGIN
+    	IF n.amount_in_stock <=0 THEN
+    		call stock_increase(n.id); 
+    	END IF
+    END;
