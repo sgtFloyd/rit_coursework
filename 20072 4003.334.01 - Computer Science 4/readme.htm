@@ -1,0 +1,797 @@
+<html xmlns:java="http://xml.apache.org/xslt/java">
+<head>
+<title>Computer Science 4 - Project
+					1</title>
+</head>
+<body background="http://www.cs.rit.edu/~f2y-grd/white.gif">
+<h3 align="center">Computer Science 4 - Project
+					1</h3>
+<h1 align="center">Configuration Puzzles</h1>
+<p align="right">
+<small>
+						copyright RIT 2002-7<br>$Id: writeup.xml,v 1.9 2007/10/07 18:50:17 cs4 Exp cs4
+  $</small>
+</p>
+<h2>
+					Due Dates:
+				</h2>
+<p>
+<em>
+				Part
+				1
+				is due on
+				12 January 2008.
+			</em>
+</p>
+<p>
+<em>
+				Part
+				2
+				is due on
+				02 February 2008.
+			</em>
+</p>
+<p>
+<em>
+				Part
+				3
+				is due on
+				14 February 2008.
+			</em>
+</p>
+<p>
+<em>
+				Part
+				4
+				is due on
+				23 February 2008.
+			</em>
+</p>
+<h2>Goal</h2>
+    <h4>1. Design</h4>
+<p>You will improve your design
+    skills while learning many new design techniques and
+    styles.</p>
+    <h4>2. C++ Programming</h4>
+<p>You will learn what it
+    takes to develop a larger program in the C++
+    language.</p>
+    <h4>3. C++ Survival</h4>
+<p>Some of the techniques you
+    learned in more standard object-oriented languages may not
+    apply here. In addition, C++ has some unique features that you
+    may be able to exploit. This project should help expose you to
+    these issues and show you how to make choices you can live
+    with.</p>
+  <h2>Overview</h2>
+    <h4>Abstraction as a Means of Extensible Design</h4>
+<p>
+    Below you will read about some specific problems you are to
+    solve. However, we will also show you how these problems fit
+    into a more general analysis pattern. If you know this, you can
+    design your solution to this more abstract model, thereby
+    allowing you to plug in new concrete problems with less
+    effort.</p>
+    <p>There are four problems for you to solve. We
+    describe, in the background section, the common characteristics
+    of these problems.</p>
+    
+    <h4>Fixing the Time on Your Clock</h4>
+<p>
+      Your clock has gone dead because you forgot to wind it or replace the
+      battery, or you had a power outage. This clock has hands, so
+      you must turn them to adjust the time. Which way, and how far,
+      should you turn the hands to fix the time the most
+      quickly?
+    </p>
+    <p>
+      You've probably guessed that this will be the easy
+      one of the bunch. In fact, we'll trivialize it even further.
+      The clock only has an hour hand, so the question becomes how
+      many whole hours backwards or forwards the hour hand must be
+      moved. Then we will "complicate" it a bit by turning it into a
+      general modulo-<code>n</code>counting problem, by saying that the clock
+      displays <code>n</code>hours on its face.
+    </p>
+    
+    <h4>The Farmer's Dilemma</h4>
+<p>
+      A farmer went to town and bought a fox, a goose, and a bag of corn.
+      Unfortunately, he had to cross a river on the way home and the boat he
+      had could only hold one of his purchases at a time. Furthermore, he
+      realized that if he left the fox alone with the goose the fox would eat
+      the goose and if he left the goose alone with the corn the goose would
+      eat the corn.
+    </p>
+    <p>
+      How could the farmer get all of his purchases across the river uneaten?
+    </p>
+    <p>
+      One thing to notice is that the fox can be left alone with the corn.
+      Another thing to notice is that neither the fox and goose or the goose
+      and corn can be left on one side of the river when the farmer is on the
+      other side of the river.
+    </p>
+    
+    <h4>Lights out!</h4>
+<p>
+      In this puzzle, you will be given the description of an NxM grid, 
+      with a single light in each cell being either "on" or "off", and 
+      fixed rules for how the state of the lights may be changed.  Your 
+      goal will be to find a way to turn an exact 
+      <em>number</em> of lights on.
+    </p>
+    <p>
+      The details of a specific version of this puzzle (where you are 
+      to find a way to have exactly <em>0</em> lights 
+      turned on), as well as some example puzzles, may be found at 
+      <a href="http://mathworld.wolfram.com/LightsOutPuzzle.html">http://mathworld.wolfram.com/LightsOutPuzzle.html</a>.
+    </p>
+    
+    <p>
+      The specifics of each problem will be given in the
+      detailed submission instructions for parts 1, 2, and 3. You
+      will be working on these puzzles with other students in the
+      class as a team.
+    </p>
+    <p>
+      After you and your team have solved these puzzles
+      you will have to solve one additional puzzle on your own. The
+      specifics of this problem are given in the detailed submission
+      instructions for part 4.
+    </p>
+  <h2>Background</h2>
+    <h4>A Single Abstraction for these Problems</h4>
+<p>
+      
+          <p>The problems described in the overview section
+          belong to a class of problems that can be characterized
+          as follows:</p>
+        <ul>
+<li>
+          <p>There is some kind of 
+          <i>world</i> that can be in one of many 
+          <i>configurations</i>. 
+          <i>Actions</i> cause the configuration of the world
+          to change in some small and incremental way.</p>
+        </li>
+<li>
+          <p>The set of all possible configurations is not
+          known ahead of time; they must be computed by applying
+          actions and seeing where they take us.</p>
+        </li>
+<li>
+          <p>We are presented with an initial
+          configuration, and asked to bring the system to an
+          acceptable 
+          <i>goal</i> configuration.</p>
+        </li>
+<li>
+          <p>The acceptability of a configuration as a goal
+          configuration is testable (often there is more than just
+          one such goal configuration).</p>
+        </li>
+<li>
+          <p>The solution is then a sequence of actions
+          that propel the world from the initial configuration to
+          one of the goal configurations. It is enough when
+          presenting a solution to a puzzle to list a sequence of
+          configurations that lead to a goal
+          configuration.</p>
+        </li>
+</ul>
+    </p>
+    <h4>Mapping the Abstraction</h4>
+<p>
+    
+        <p>Let's see how the "lights-out" problem maps to
+        this abstraction.</p>
+      <ul>
+<li>
+        <p>The world is the room containing (n*m) lights.
+        The current configuration of the world is the state of the 
+        light in each cell of the room. An action consists of turning 
+        a set of lights on/off in a legal way.</p>
+      </li>
+<li>
+        <p>The initial configuration is just the initial 
+        state of the room, with information about each of the lights.
+        </p>
+      </li>
+<li>
+        <p>
+        The test for an acceptable configuration 
+        would be to see if it violates any of the "must-stay-on" 
+        or "must-stay-off" constraints for the problem.
+        </p>
+      </li>
+</ul>We will leave it as an exercise to the student to
+    determine the mappings to the other two problems.</p>
+    <h4>The Algorithm</h4>
+<p>The interesting thing about
+    these problems is that we do not have to think about the
+    concrete problem 
+    <i>instance</i>in order to describe an algorithm to solve
+    it! Read and make sure you understand the algorithm
+    below:</p>
+    <p>
+<pre>
+<code>
+    Create an initially empty queue of configurations. 
+    Insert the initial configuration into the queue. 
+    While the queue is not empty and the first configuration in the queue does not meet the goal, loop: 
+        Remove the first configuration from the queue and call it C. 
+        For each move applicable to C, loop: 
+            Make the move and enqueue the resulting configuration if it has not already been seen. 
+        end-loop.
+    end-loop. 
+    The acceptable configuration is now at the head of the queue; but if the queue is empty, there is no solution to the problem.
+    </code>
+</pre>
+</p>
+    <p>Did you recognize a pattern in the way the algorithm
+    organizes and traverses its search space? It is a breadth-first
+    search of a tree, where the nodes of the tree are discovered
+    and attached as you go. This algorithm could be made more
+    efficient. As written, it finds a goal configuration, but keeps
+    looping until that configuration gets to the head of the queue.
+    Feel free to improve or even redo the algorithm. 
+    
+        <p>Notice some important things about the above
+        algorithm:</p>
+      <ul>
+<li>
+        <p>No specific concrete problem is ever
+        mentioned.</p>
+      </li>
+<li>
+        <p>The algorithm is incomplete because it does not
+        finish by telling you the sequence of actions that get you
+        to an acceptable configuration. That, again, is left as an
+        exercise for the student!</p>
+      </li>
+<li>
+        <p>We do not say how to determine if a
+        configuration "<code>has not already been seen</code>".</p>
+      </li>
+</ul>
+</p>
+  <h2>What To Do</h2>
+<p>The activities in this project will have you design
+    a framework that is easily adapted to all the problems of the
+    classification described above. You will then implement and
+    test all three of the problems using that design</p>
+<p>The general process you should follow goes something
+    like this:</p>
+<p>
+<pre>
+<code>
+    Develop the initial framework design in the abstract. 
+    Submit the design to your instructor. 
+    Write the code for the abstract framework. 
+    For each problem for which you must implement a solution:
+        Code the specific problem classes.
+        If the previous step forced a modification of your design,
+            Modify the code for the design as needed to make it work 
+            Modify the code for the previous problems as needed 
+        Submit the code for your latest design and all the problems solved so far
+    </code>
+</pre>
+</p>
+<h4>Shared Programming Responsibility</h4>
+<p>Because
+    this is the only project you are doing in this course, and it
+    is mostly a team project, there is a possibility that we will
+    not be able to accurately assess your programming abilities if
+    your teammates do most of the programming. Therefore, each team
+    member must be responsible for an equal portion of the code
+    written 
+    <em>in the activities 2 and 3</em>. In the header
+    comments, the name of the principal author should show up
+    first, as always, in each code file. The principal author of a
+    piece of code must be able to explain it orally if asked by
+    his/her instructor. Activity 1 is solely an individual
+    submission, while Activity 4 is an individual submission based
+    on the work the team has done during submissions 2 and
+    3.</p>
+<h3>
+			Part
+			1</h3>
+<p>
+<em>
+				Part
+				1
+				is due on
+				12 January 2008.
+			</em>
+</p>
+<p>In this activity you will design a framework
+      capable of solving any puzzle of a specific type and, as a
+      test of this framework, use the framework to solve a very
+      simple puzzle. In this first activity, you are mainly
+      concerned with the design of the framework. The term 
+      <i>framework</i> means a set of classes that enable
+      implementation of solutions to certain problems. However, the
+      framework by itself is not a complete program. You will work
+      with abstract notions such as configuration, goal, and
+      find-next-configuration. The problem solver should be able to
+      solve any problem that conforms to an 
+      <i>interface</i> that you develop in your design. Think
+      carefully about this interface, as you will also have to
+      write classes that conform to it to solve the four
+      problems.</p>
+<p>Your design document is a text file that contains
+      a description of the framework that will solve puzzles. It
+      should include a description of the classes and the public
+      methods that the client uses to solve puzzles. This
+      description should explain how the solver will solve puzzles.
+      It is important to realize that the solver must be capable of
+      solving any puzzle and must contain all of the puzzle-solving
+      machinery. The individual puzzles should not contain any
+      puzzle-solving machinery but only contain methods
+      implementing the rules for a particular puzzle. You do not
+      need to design a general puzzle rule mechanism as each puzzle
+      can explicitly code the possible successor states to any
+      (legal) puzzle configuration.</p>
+<p>The design document should also explain the flow
+      of control and the sequence of steps that the solver would
+      take when solving a simple puzzle. You should explain how the
+      client uses the interface you have designed and the steps
+      that are taken to solve a specific puzzle. For example, the
+      puzzle problem can be to set the clock to 3 when it now reads
+      2. The design document explains how this will happen within
+      the general solver framework.</p>
+<p>When you design the generic configuration class,
+      make sure you include some type of a 
+      <code>display</code> function that will print a textual
+      representation of the configuration to standard output. This
+      will be of great help while you are debugging your code. The
+      puzzle solver algorithm can be enhanced by a call to the
+      display function inside the loop. Of course, the
+      implementations of 
+      <code>display()</code> will only show up in the code for
+      specific puzzles.</p>
+<p>This activity will also perform the first
+      validation of your design. You will write the code for your
+      design. Then you will add code for the set-the-clock problem,
+      put the two together, and see how they work. 
+      <em>It is important to note that you are expected to be
+      using a framework that is equally applicable to the other
+      problems.</em> Clearly, there are far easier solutions
+      to this problem than the one we are having you build! This
+      first puzzle is designed to test your design.</p>
+<p>You will have to think about exactly how you will
+      realize your design within the constraints of the C++
+      language. Although you are free to make your own decisions,
+      some suggested approaches are shown at 
+      <a href="choices.html">choices.html</a> that satisfy the requirement
+      of a framework that adapts well to different
+      "configuration/puzzle" problems. All of the choices given can
+      be made to work. As a hint, students who choose to represent
+      configurations as a vector of ints generally have an easier
+      time.</p>
+<p>
+      
+          <p>Getting back to the clock problem, it requires
+          three integers as input:</p>
+        <ul>
+<li>
+          <p>number of hours on dial</p>
+        </li>
+<li>
+          <p>current clock time</p>
+        </li>
+<li>
+          <p>true time</p>
+        </li>
+</ul>These integers are to be provided on the command line
+      in the order shown above. Remember that in C++ command line
+      arguments are strings (arrays of chars) and must be converted
+      to ints before they can be used in your program. You may use 
+      <code>std::atoi(argv[i])</code>to convert a command line argument
+      to an integer (though this does not handle certain types of 
+      invalid data). If you get the wrong number of arguments, or
+      if the times are out of bounds with respect to the legal
+      hours on the dial, you should report an error on standard
+      error and quit.</p>
+<p>The program is to be called 
+      <b>clock</b>, which means the 
+      <code>main</code> function should be defined in a file named 
+      <b><code>clock.cpp</code></b>. As submitted, the program
+      must print out the solution by listing the sequence of
+      configurations needed to reach the chosen goal configuration
+      from the starting configuration.</p>
+<p>Your solution to this problem (and all problems)
+      must print out the step number for each step in your
+      solution.</p>
+<p>You must also submit a file named 
+      <b><code>readme</code></b> containing your design and any other
+      information about your program you want. The readme file is
+      part of every submission for this project. If you modify the
+      design in the future, which you can do at any time without
+      penalty, you must submit an explanation of changes in the 
+      <b><code>readme</code></b> file.</p>
+<h4>How To Submit</h4>
+        <p>You must submit all the 
+        <b><code>.cpp</code></b> and 
+        <b><code>.h</code></b> files required to build the 
+        <b>clock</b> program. It must be possible to
+        compile the 
+        <b>clock</b> program by executing 
+        <b>gmakemake</b> and then simply 
+        <b>make</b>. Your design document must also be
+        submitted as the 
+        <b><code>readme</code></b>.</p>
+        <p>
+<pre>
+<code>
+            try cs4-grd project 1-1 clock.cpp <em> other-needed-code-files</em> readme
+        </code>
+</pre>
+</p>
+      <h3>
+			Part
+			2</h3>
+<p>
+<em>
+				Part
+				2
+				is due on
+				02 February 2008.
+			</em>
+</p>
+<p>The purpose of this activity is to implement the
+      solution for a problem that requires a slightly more involved
+      configuration design. Write the code for the farmer
+      problem, plug it into your framework, and see how it
+      works.</p>
+<p>
+        This problem does not have multiple instances, so no input 
+        of any kind is required.
+      </p>
+<p>
+        The program is to be called
+        <b>farmer</b>, which means
+        the <code>main</code> function should
+        be defined in a file named
+        <b><code>farmer.cpp</code></b>. As
+        submitted, the program must print out
+        the solution by listing the actions and
+        configurations needed to reach the
+        chosen goal configuration from the
+        starting configuration.
+      </p>
+<p>If you have modified the design, you must submit
+      an explanation of changes in the 
+      <b><code>readme</code></b> file.</p>
+<h4>Configuration Design Suggestions</h4>
+<p>
+        The world, although more complicated than the clock, is still fairly simple.
+        The configuration basically consists of two sets. One set contains the
+        participants that are on the starting side of the river; the other contains
+        those who are on the destination side. An active involves "ferrying"
+        one or two participants from one side of the river to the other.  The
+        participants are the farmer, fox, goose, and corn.  Of course, there are
+        restrictions on number of participants on the ferry, and who may be left
+        alone. They must be observed when a configuration is asked what its
+        legitimate neighboring configurations are.
+      </p>
+<h4>How To Submit</h4>
+        <p>You must submit all the 
+        <b><code>.cpp</code></b> and 
+        <b><code>.h</code></b> files required to build the 
+        <b>farmer</b> program 
+        <em>and</em> the 
+        <b>clock</b> program. It must be possible to
+        compile both programs by executing 
+        <b>gmakemake</b> and then simply 
+        <b>make</b>. If your underlying design changed,
+        include the changes in the 
+        <b><code>readme</code></b> file mentioned above. 
+         (
+		<small>If you had to change your design, then you
+        probably need to update the clock program so that it
+        continues to work.</small>)
+	</p>
+        <p>
+<pre>
+<code>
+            try cs4-grd project 1-2 clock.cpp farmer.cpp <em>other-needed-code-files</em> readme
+        </code>
+</pre>
+</p>
+      <h3>
+			Part
+			3</h3>
+<p>
+<em>
+				Part
+				3
+				is due on
+				14 February 2008.
+			</em>
+</p>
+<p>The purpose of this activity is to implement the
+      solution for a problem that at least appears very complex to
+      humans. We hope that you will be surprised how easily your
+      framework discovers a solution to this problem. Write the
+      code for the "lights out" problem, plug it into your framework,
+      and see how it works.</p>
+<h4>Basic problem</h4>
+<p>
+        This is a one-person game played on a rectangular grid of 
+        lamps which can be turned on and off. A move consists of 
+        flipping a "switch" inside one of the squares, thereby 
+        toggling the on/off state of this and all four vertically 
+        and horizontally adjacent squares. The goal of this problem 
+        is to find a way to wind up with a specific number of lights 
+        turned <em>on</em>, while keeping in mind that 
+        you are "forbidden" to turn certain lights on or off.
+      </p>
+<h4>Input</h4>
+<p>Your program will need to be told
+      the initial configuration of the puzzle. The program will be
+      called 
+      <code>lights</code>and will take three arguments:</p>
+<p>
+      <ul>
+<li>
+          <p>The name of the input file to read for the
+          initial configuration data. If this name is 
+          <code>"-"</code>then the initial configuration data is
+          read from the standard input.</p>
+        </li>
+<li>
+          <p>The name of the output file where the solution
+          is to be written. If this name is 
+          <code>"-"</code>then the solution is written to the
+          standard output.</p>
+        </li>
+<li>
+<p>
+            The <em>exact</em> number of lights that 
+            must be turned on in order for a configuration to be 
+            acceptable as a solution to the problem.  (There may 
+            be multiple configurations that have this number of 
+            lights turned on.)
+          </p>
+          <p>
+            In the original version of this problem (an example of which 
+            may be found at 
+            <a href="http://mathworld.wolfram.com/LightsOutPuzzle.html">http://mathworld.wolfram.com/LightsOutPuzzle.html</a>), 
+            the goal was to turn off all of the lights.  That version is 
+            equivalent to passing in a "0" for this command-line 
+            parameter.
+        </p>
+</li>
+</ul>If you get the wrong number of arguments or you have
+      difficulty opening, reading, or writing any files you should
+      report an error on standard error and quit.</p>
+<p>First, make sure you understand how to do the
+      puzzles yourself (at least simple ones), and particularly how
+      the configurations change by turning a light on or off.
+      </p>
+<h4>Input format</h4>
+<p>
+      The first line of the data describing a puzzle will contain 
+      the dimensions of the rectangular grid: first the number of 
+      squares horizontally, and then the number of squares vertically 
+      (separated by a space). The remaining lines of the input data will
+      describe the grid itself, with each line represent a row of
+      the maze with a single string (i.e., no whitespace). Each
+      character within the given maze will be one of four
+      possibilities: <ul>
+<li>
+<p>
+	    <code>.</code> (a period) represents a light that is turned off, 
+	  </p>
+</li>
+<li>
+<p>
+	    <code>*</code> (an asterisk) represents a light that is turned on, 
+	  </p>
+</li>
+<li>
+<p>
+	    <code>0</code> (a zero) represents a light that must be left 
+        <em>off</em> at all times, and 
+	  </p>
+</li>
+<li>
+<p>
+	    <code>1</code> (a one) represents a light that must be left 
+        <em>on</em> at all times.
+	  </p>
+</li>
+</ul>
+</p>
+<p>
+	    Here's an example of what the above means.  Let's say that 
+		we just want to consider one "normal" cell (marked with an 
+		"L") in the following configuration:
+	  </p>
+<p>
+<pre>
+<code>    . . * .
+    . * L 1
+    . 0 . .
+	  </code>
+</pre>
+</p>
+<p>
+	    If we wanted to turn the light at position "L" on or off, 
+		there are five possible things we might consider doing:
+		<ul>
+<li>
+<p>
+		    We could try turning it on/off <em>directly</em>, 
+			but this would be illegal, since it has a horizontal 
+			neighbor ("1") that needs to be left in the "on" state.
+		  </p>
+</li>
+<li>
+<p>
+		    We could try changing the cell to the <em>right</em>
+			of "L", but this would also be illegal since (again) that light 
+			is in a "fixed" state, and must be left on.
+		  </p>
+</li>
+<li>
+<p>
+		    We could try changing the cell to the <em>left</em> 
+			of "L", but this would be illegal since this would try to 
+			change the "0" cell, which must be left off.
+		  </p>
+</li>
+<li>
+<p>
+		    We could try changing the cell <em>below</em> 
+			"L", but this would also try to change the "0" cell (which 
+			is still illegal).
+		  </p>
+</li>
+<li>
+<p>
+		    We can try changing the cell <em>above</em> 
+			"L".  This would be a legal change, since it doesn't affect 
+			anything that's in a "fixed" state.
+		  </p>
+</li>
+</ul>
+	  </p>
+<p>A sample input file that shows a rather easy
+      version of this puzzle can be found at 
+      <a href="lights1.in">lights1.in</a>. It is an example that is
+      easily solved by hand for a variety of cases. Be sure and 
+	  use it as an early test case. This is what the puzzle looks 
+	  like:</p>
+<p>
+        <p align="center">
+<img src="lights1.png"><br>
+<b>A Graphical Representation of lights1.in</b>
+</p>
+      </p>
+<p>
+		One example of a valid path to a goal of "1 light left on" 
+		from this starting point is as follows:
+	  </p>
+<p>
+        <p align="center">
+<img src="lights1-1on-sol.png"><br>
+<b>A Graphical Representation of solving lights1.in for '1 light left on'</b>
+</p>
+      </p>
+<p>A more complicated input file that shows a puzzle
+      can be hard for humans to solve is found at 
+      <a href="lights2.in">lights2.in</a>. This puzzle can be used as a
+      test case after you have your code debugged.</p>
+<p>Be sure that you check your code with other
+      puzzles as well, including those that have no
+      solution!</p>
+<p>You may assume that the input file will contain
+      only correct (parseable) input - however, the maze given may
+      not be solvable!</p>
+<h4>Configuration Design Suggestions</h4>
+<p>The
+      world is now more complicated. You may recall that one of the
+      framework approaches in 
+      <a href="choices.html">choices.html</a> was to represent the
+      configurations as a vector of integers. Even if you choose
+      another design, you can still put a vector of integers into
+      your configuration class. For this puzzle, a 2-dimensional matrix might
+      be easier to work with. Think about indexing a single vector
+      with an accessing function to represent a 2-D matrix with a
+      1-D vector. You could use the character codes as the integers
+      in your vector. You could then cast the integers to 
+      <code>char</code> for printing.</p>
+<h4>Submission Details</h4>
+<p>The program is to be
+      called 
+      <b>lights</b>, which means the 
+      <code>main</code> function should be defined in a file named 
+      <b><code>lights.cpp</code></b>. As submitted, the program
+      must print out the solution by listing the sequence of
+      configurations needed to reach the chosen goal configuration
+      from the starting configuration.</p>
+<p>Note that there is a possibility that no solution
+      exists. If that is the case for a particular input, the
+      program should print, "<code>no solution exists</code>" on the output (file or
+      standard out), and then exit.</p>
+<p>If you have modified the design, you must submit
+      an explanation of changes in a file named 
+      <b><code>readme</code></b>.</p>
+<h4>How To Submit</h4>
+        <p>You must submit all the 
+        <b><code>.cpp</code></b> and 
+        <b><code>.h</code></b> files required to build the 
+        <b>lights</b>
+        <em>and</em>
+        <b>farmer</b>
+        <em>and</em>
+        <b>clock</b> programs. It must be possible to
+        compile all three programs by executing 
+        <b>gmakemake</b> and then simply 
+        <b>make</b>. Your design model must also be
+        resubmitted, augmented with the classes for the
+        "lights out" problem. If your underlying design changed, include
+        the 
+        <b><code>readme</code></b> file mentioned above. (If you
+        had to change your design, then you probably need to update
+        the other two programs so that they continue to
+        work.)</p>
+        <p>
+<pre>
+<code>
+            try cs4-grd project 1-3 clock.cpp farmer.cpp lights.cpp <em>other-needed-code-files</em> readme
+        </code>
+</pre>
+</p>
+      <h3>
+			Part
+			4</h3>
+<p>
+<em>
+				Part
+				4
+				is due on
+				23 February 2008.
+			</em>
+</p>
+<p>
+	This activity is to be done individually.  The details of this 
+	activity will be provided later in the quarter.
+      </p>
+<h2>Grade Computation</h2>
+<p> Grade Breakdown:
+			<ul>
+<li>Code for abstract framework, plus the clock setting
+      problem:
+			25 points (<u>submitted</u>)
+		</li>
+<li>Code for abstract framework, plus the clock and farmer
+      problem:
+			25 points (<u>submitted</u>)
+		</li>
+<li>Code for abstract framework, plus the clock and farmer
+      and lights problem:
+			25 points (<u>submitted</u>)
+		</li>
+<li>Code for all project components:
+			25 points (<u>submitted</u>)
+		</li>
+</ul>
+</p>
+<hr>
+<h2>Change History</h2>
+<small>
+<pre>
+    
+$Log: writeup.xml,v $
+Revision 1.11  2007/12/09 20:33:57  cs4
+Added clarification of how to decide what moves are legal in "lights".
+
+
+</pre>
+</small>
+</body>
+</html>
