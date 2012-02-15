@@ -1,0 +1,50 @@
+Author: Gabriel Smith (ges7506)
+Date: Nov 11, 2009
+Assignment: DCN Programming Project 3
+
+::Usage::
+	project3
+
+	Keyboard input:
+		'a' - Toggle animation on/off (alternate: 'A')
+		'1' - Switch view to camera position 1
+		'2' - Switch view to camera position 2
+		'5' - Toggle light source 1 on/off
+		'6' - Toggle light source 2 on/off
+		'7' - Toggle disco lights on/off (alternate: 'd' or 'D')
+		'q' - Quit program (alternate: 'Q')
+
+::Camera Positions::
+Camera 1:
+	Location: x=0.0, y=2.0, z=-3.0
+	Direction: x=0.0, y=2.0, z=1.0
+Camera 2:
+	Location: x=4.0, y=2.0, z=1.0
+	Direction: x=0.0, y=2.0, z=3.0
+
+::Light Sources::
+Light 0 at x=4.0, y=2.0, z=1.0
+Light 1 at x=5.0, y=2.0, z=10.0
+Disco lights use GL_LIGHT2 through 7, and are in the same position
+as Light 1. Each disco light has a different color set.
+
+::Objects::
+Floor - 	Flat grey material
+			No texture
+			No transformations during animation
+
+Cube - 		Red material
+			No texture
+			Rotates around y-axis
+
+Teapot - 	Pink, shiny material
+			No texture
+			Rotates with cube around y-axis
+
+Sphere - 	Teal, reflective material
+			No texture
+			'Bounces' up and down the z-axis using a sin curve as reference
+
+Torus -		Flat grey base material
+			Checkerboard texture applied on top of material
+			Scales and rotates around all axes during animation
