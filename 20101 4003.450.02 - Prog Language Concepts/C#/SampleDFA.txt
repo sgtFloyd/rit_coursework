@@ -1,0 +1,8 @@
+// DFA to accept integers and real numbers
+Start: ' ' Start, '+' Sign, '-' Sign, '0123456789'
+Integer; // optional sign
+Sign: '0123456789' Integer;
+Integer@ '0123456789' Integer, '.' Decimal;
+Decimal: '0123456789' Real;
+Real@ '0123456789' Real;
+*Start
