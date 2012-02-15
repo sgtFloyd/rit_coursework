@@ -399,13 +399,13 @@ import java.util.ArrayList;
  *
  */
 public class EventListener {
-	
+    
 // MAIN FIELDS
-	private SECalendar cal;
-	private GUI gui;
-	private Appointment defaultAppointment;
-	private int currentView;
-	private int appIndex;
+    private SECalendar cal;
+    private GUI gui;
+    private Appointment defaultAppointment;
+    private int currentView;
+    private int appIndex;
 // DEFAULT APPOINTMENT VARIABLES
     private String defaultTitle = "Title";
     private String defaultLocation = "Location";
@@ -431,374 +431,374 @@ public class EventListener {
     private String recpt = "username@email.com";
     
 /*
- * 	the main class where everything takes place.
+ *  the main class where everything takes place.
  *  constructor initializes main field values, sets up 
  *  a default config file if on is not present, and makes 
  *  a default appointment based on the config file.
  *  
  *  @param   gui    The gui to be attached to.
  */
-	public EventListener(GUI gui) {
+    public EventListener(GUI gui) {
 // MAIN CONSTRUCTION
-		this.gui = gui;
-		cal = new SECalendar();
-		cal.setCurrentDate(cal.getToday());
-		currentView = 1;
-		appIndex = -1;
+        this.gui = gui;
+        cal = new SECalendar();
+        cal.setCurrentDate(cal.getToday());
+        currentView = 1;
+        appIndex = -1;
 // BUILD CONFIG
-		defaultConfig.add("calFile");
-		defaultConfig.add(defaultTitle);
-		defaultConfig.add(defaultStart + "");
-		defaultConfig.add(defaultEnd + "");
-		defaultConfig.add(defaultFullDay + "");
-		defaultConfig.add(defaultLocation);
-		defaultConfig.add(defaultPriority + "");
-		defaultConfig.add(defaultDescription);
-		defaultConfig.add(defaultVisibleAlarm + "");
-		defaultConfig.add(defaultEmailAlarm + "");
-		defaultConfig.add(defaultConfirmed + "");
-		defaultConfig.add("30");
-		defaultConfig.add(from);
-		defaultConfig.add(password);
-		defaultConfig.add(smtp);
-		defaultConfig.add(port);
-		defaultConfig.add(recpt);		
-		if(cal.getConfig().size() < 17){
-			cal.updateConfig(defaultConfig);
-		}
-		buildDefaultApp();
-	} 
+        defaultConfig.add("calFile");
+        defaultConfig.add(defaultTitle);
+        defaultConfig.add(defaultStart + "");
+        defaultConfig.add(defaultEnd + "");
+        defaultConfig.add(defaultFullDay + "");
+        defaultConfig.add(defaultLocation);
+        defaultConfig.add(defaultPriority + "");
+        defaultConfig.add(defaultDescription);
+        defaultConfig.add(defaultVisibleAlarm + "");
+        defaultConfig.add(defaultEmailAlarm + "");
+        defaultConfig.add(defaultConfirmed + "");
+        defaultConfig.add("30");
+        defaultConfig.add(from);
+        defaultConfig.add(password);
+        defaultConfig.add(smtp);
+        defaultConfig.add(port);
+        defaultConfig.add(recpt);       
+        if(cal.getConfig().size() < 17){
+            cal.updateConfig(defaultConfig);
+        }
+        buildDefaultApp();
+    } 
 /*
  * method for gui to call computeFirstOfMonth()
  */
 // CAL ACCESSORS
-	public int firstOfMonth() {
-		return cal.computeFirstOfMonth();
-	}
+    public int firstOfMonth() {
+        return cal.computeFirstOfMonth();
+    }
 /*
  * method for gui to call getCurrentDate()
  */
-	public String getSelectedDate() {
-		return cal.getCurrentDate();
-	}
+    public String getSelectedDate() {
+        return cal.getCurrentDate();
+    }
 /*
  * method for gui to call getToday()
  */
-	public String getToday() {
-		return cal.getToday();
-	}
+    public String getToday() {
+        return cal.getToday();
+    }
 /*
  * method for gui to call viewApp()
  */
-	public ArrayList<Appointment> viewApp(String date) {
-		return cal.viewApp(date);
-	}
+    public ArrayList<Appointment> viewApp(String date) {
+        return cal.viewApp(date);
+    }
 /*
  * simple method to return the number of days in a specified month of a specified year
  */
-	public int daysInMonth(int month, int year){
-		return cal.computeNumDays(month, year).length;
-	}
+    public int daysInMonth(int month, int year){
+        return cal.computeNumDays(month, year).length;
+    }
 
 // ACCESSORS
-	public int getCurrentView() {
-		return currentView;
-	}
-	public String getSelectedMonth(){
-		String[] date = getSelectedDate().split("/");
-		Integer monthInt = Integer.parseInt(date[1]);
-		String month = "";
-		switch (monthInt) {
-			case 1: month = "January"; break;
-			case 2: month = "February"; break;
-			case 3: month = "March"; break;
-			case 4: month = "April"; break;
-			case 5: month = "May"; break;
-			case 6: month = "June"; break;
-			case 7: month = "July"; break;
-			case 8: month = "August"; break;
-			case 9: month = "September"; break;
-			case 10: month = "October"; break;
-			case 11: month = "November"; break;
-			case 12: month = "December"; break;
-			default: month = ""; break;
-		}
-		return month;
+    public int getCurrentView() {
+        return currentView;
+    }
+    public String getSelectedMonth(){
+        String[] date = getSelectedDate().split("/");
+        Integer monthInt = Integer.parseInt(date[1]);
+        String month = "";
+        switch (monthInt) {
+            case 1: month = "January"; break;
+            case 2: month = "February"; break;
+            case 3: month = "March"; break;
+            case 4: month = "April"; break;
+            case 5: month = "May"; break;
+            case 6: month = "June"; break;
+            case 7: month = "July"; break;
+            case 8: month = "August"; break;
+            case 9: month = "September"; break;
+            case 10: month = "October"; break;
+            case 11: month = "November"; break;
+            case 12: month = "December"; break;
+            default: month = ""; break;
+        }
+        return month;
     }
 /*
- * 	returns the sunday of whichever week you are currently in
+ *  returns the sunday of whichever week you are currently in
  */
-	public String getSelectedWeek(){
-		String[] temp = getSelectedDate().split("/");
-		int[] date = new int[3];
-		for(int i = 0; i < 3; i++){
-			date[i] = Integer.parseInt(temp[i]);
-		}
-		int tempday = date[2];
-		int start = cal.computeFirstOfMonth();
-		start += (tempday % 7) + 5;
-		tempday = date[2] - start;
-		while(tempday <= date[2]-7){
-			tempday += 7;
-		}
-		if(tempday <= 0){
-			if(date[1] == 1){
-				date[1] = 12;
-				date[0]--;
-			}else{
-				date[1]--;
-			}
-			tempday += daysInMonth(date[1], date[0]);
-		}
-		return date[0] + "/" + date[1] + "/" + tempday;
-	}
-	public int getSelectedIndex(){
-		return appIndex;
-	}
-	public Appointment getSelectedAppointment(){
-		Appointment retVal;
-		if (appIndex != -1 && gui.getFromIndex(appIndex) != null) {
-			retVal = gui.getFromIndex(appIndex);
-		} else {
-			retVal = defaultAppointment;
-		}
-		return retVal;
-	}
-	public int[] getNumDays() {
-		String[] date = cal.getCurrentDate().split("/");
-		int month = Integer.parseInt(date[1]);
-		int year = Integer.parseInt(date[0]);
-		return cal.computeNumDays(month, year);
-	}
+    public String getSelectedWeek(){
+        String[] temp = getSelectedDate().split("/");
+        int[] date = new int[3];
+        for(int i = 0; i < 3; i++){
+            date[i] = Integer.parseInt(temp[i]);
+        }
+        int tempday = date[2];
+        int start = cal.computeFirstOfMonth();
+        start += (tempday % 7) + 5;
+        tempday = date[2] - start;
+        while(tempday <= date[2]-7){
+            tempday += 7;
+        }
+        if(tempday <= 0){
+            if(date[1] == 1){
+                date[1] = 12;
+                date[0]--;
+            }else{
+                date[1]--;
+            }
+            tempday += daysInMonth(date[1], date[0]);
+        }
+        return date[0] + "/" + date[1] + "/" + tempday;
+    }
+    public int getSelectedIndex(){
+        return appIndex;
+    }
+    public Appointment getSelectedAppointment(){
+        Appointment retVal;
+        if (appIndex != -1 && gui.getFromIndex(appIndex) != null) {
+            retVal = gui.getFromIndex(appIndex);
+        } else {
+            retVal = defaultAppointment;
+        }
+        return retVal;
+    }
+    public int[] getNumDays() {
+        String[] date = cal.getCurrentDate().split("/");
+        int month = Integer.parseInt(date[1]);
+        int year = Integer.parseInt(date[0]);
+        return cal.computeNumDays(month, year);
+    }
 
-// CONFIG ACCESSORS	
-	public int getNumMinutes(){
-		return Integer.parseInt(cal.getConfig().get(11));
-	}
-	public String getFrom(){
-		return cal.getConfig().get(12);
-	}
-	public String getPassword(){
-		return cal.getConfig().get(13);
-	}
-	public String getSmtp(){
-		return cal.getConfig().get(14);
-	}
-	public String getPort(){
-		return cal.getConfig().get(15);
-	}
-	public String getRecpt(){
-		return cal.getConfig().get(16);
-	}
+// CONFIG ACCESSORS 
+    public int getNumMinutes(){
+        return Integer.parseInt(cal.getConfig().get(11));
+    }
+    public String getFrom(){
+        return cal.getConfig().get(12);
+    }
+    public String getPassword(){
+        return cal.getConfig().get(13);
+    }
+    public String getSmtp(){
+        return cal.getConfig().get(14);
+    }
+    public String getPort(){
+        return cal.getConfig().get(15);
+    }
+    public String getRecpt(){
+        return cal.getConfig().get(16);
+    }
 
 // LISTENERS
-	class buttonListener implements ActionListener {
-		public void actionPerformed(ActionEvent event) {
+    class buttonListener implements ActionListener {
+        public void actionPerformed(ActionEvent event) {
 // MAIN BUTTONS
-			if (event.getActionCommand().equals("New")) {
-				if(!cal.isModified() || savePopup()){
-					cal = new SECalendar();
-					gui.refreshAll();
-				}
-			} else if (event.getActionCommand().equals("Open...")) {
-				if(!cal.isModified() || savePopup()){
-					JFrame frame = new JFrame("Open");
-					JFileChooser popup = new JFileChooser();
-					popup.showOpenDialog(frame);
-					if (popup.getSelectedFile() != null) {
-						cal.importCalendar((popup.getSelectedFile()).getPath());
-					}
-				}
-				gui.refreshAll();
-			} else if (event.getActionCommand().equals("Save")) {
-				JFrame frame = new JFrame("Save");
-				JFileChooser popup = new JFileChooser();
-				popup.showSaveDialog(frame);
-				if (popup.getSelectedFile() != null) {
-					cal.exportCalendar((popup.getSelectedFile()).getPath());
-				}
-				gui.refreshAll();
-			} else if (event.getActionCommand().equals("Goto Today")) {
-				cal.setCurrentDate(cal.getToday());
-				gui.refreshAll();
-			} else if (event.getActionCommand().equals("Goto Date...")) {
-				new goToDate();
-			} else if (event.getActionCommand().equals("Month View")) {
-				currentView = 1;
-				gui.refreshAll();
-			} else if (event.getActionCommand().equals("Week View")) {
-				currentView = 2;
-				gui.refreshAll();
-			} else if (event.getActionCommand().equals("Day View")) {
-				currentView = 3;
-				gui.refreshAll();
-			} else if (event.getActionCommand().equals("Preferences")) {
-				new prefPopup();
-			} else if (event.getActionCommand().equals("Exit")) {
-				if(!cal.isModified() || savePopup()){
-					gui.exit();
-				}
-			}
-			// APPOINTMENT FIELDS
-			else if (event.getActionCommand().equals("comboBoxChanged")) {
-				gui.rBoxChanged();
-			}else if (event.getActionCommand().equals("wholedayBox")) {
-				gui.toggleFullDay();
-			}else if (event.getActionCommand().equals("visAlarmBox")) {
-				gui.toggleVisibleAlarm();
-			}else if (event.getActionCommand().equals("emailAlarmBox")) {
-				gui.toggleEmailAlarm();
-			}else if (event.getActionCommand().equals("recurringBox")) {
-				gui.toggleRecurring();
-			}else if(event.getActionCommand().equals("singleInstanceBox")){
-				gui.toggleRecurring();
-			}else if (event.getActionCommand().equals("confirmCheckBox")) {
-				gui.toggleConfirm();
-			}else if (event.getActionCommand().equals("Sunday")) {
-				gui.toggleSunday();
-			}else if (event.getActionCommand().equals("Monday")) {
-				gui.toggleMonday();
-			}else if (event.getActionCommand().equals("Tuesday")) {
-				gui.toggleTuesday();
-			}else if (event.getActionCommand().equals("Wednesday")) {
-				gui.toggleWednesday();
-			}else if (event.getActionCommand().equals("Thursday")) {
-				gui.toggleThursday();
-			}else if (event.getActionCommand().equals("Friday")) {
-				gui.toggleFriday();
-			}else if (event.getActionCommand().equals("Saturday")) {
-				gui.toggleSaturday();
-			}
-		}
-	}
+            if (event.getActionCommand().equals("New")) {
+                if(!cal.isModified() || savePopup()){
+                    cal = new SECalendar();
+                    gui.refreshAll();
+                }
+            } else if (event.getActionCommand().equals("Open...")) {
+                if(!cal.isModified() || savePopup()){
+                    JFrame frame = new JFrame("Open");
+                    JFileChooser popup = new JFileChooser();
+                    popup.showOpenDialog(frame);
+                    if (popup.getSelectedFile() != null) {
+                        cal.importCalendar((popup.getSelectedFile()).getPath());
+                    }
+                }
+                gui.refreshAll();
+            } else if (event.getActionCommand().equals("Save")) {
+                JFrame frame = new JFrame("Save");
+                JFileChooser popup = new JFileChooser();
+                popup.showSaveDialog(frame);
+                if (popup.getSelectedFile() != null) {
+                    cal.exportCalendar((popup.getSelectedFile()).getPath());
+                }
+                gui.refreshAll();
+            } else if (event.getActionCommand().equals("Goto Today")) {
+                cal.setCurrentDate(cal.getToday());
+                gui.refreshAll();
+            } else if (event.getActionCommand().equals("Goto Date...")) {
+                new goToDate();
+            } else if (event.getActionCommand().equals("Month View")) {
+                currentView = 1;
+                gui.refreshAll();
+            } else if (event.getActionCommand().equals("Week View")) {
+                currentView = 2;
+                gui.refreshAll();
+            } else if (event.getActionCommand().equals("Day View")) {
+                currentView = 3;
+                gui.refreshAll();
+            } else if (event.getActionCommand().equals("Preferences")) {
+                new prefPopup();
+            } else if (event.getActionCommand().equals("Exit")) {
+                if(!cal.isModified() || savePopup()){
+                    gui.exit();
+                }
+            }
+            // APPOINTMENT FIELDS
+            else if (event.getActionCommand().equals("comboBoxChanged")) {
+                gui.rBoxChanged();
+            }else if (event.getActionCommand().equals("wholedayBox")) {
+                gui.toggleFullDay();
+            }else if (event.getActionCommand().equals("visAlarmBox")) {
+                gui.toggleVisibleAlarm();
+            }else if (event.getActionCommand().equals("emailAlarmBox")) {
+                gui.toggleEmailAlarm();
+            }else if (event.getActionCommand().equals("recurringBox")) {
+                gui.toggleRecurring();
+            }else if(event.getActionCommand().equals("singleInstanceBox")){
+                gui.toggleRecurring();
+            }else if (event.getActionCommand().equals("confirmCheckBox")) {
+                gui.toggleConfirm();
+            }else if (event.getActionCommand().equals("Sunday")) {
+                gui.toggleSunday();
+            }else if (event.getActionCommand().equals("Monday")) {
+                gui.toggleMonday();
+            }else if (event.getActionCommand().equals("Tuesday")) {
+                gui.toggleTuesday();
+            }else if (event.getActionCommand().equals("Wednesday")) {
+                gui.toggleWednesday();
+            }else if (event.getActionCommand().equals("Thursday")) {
+                gui.toggleThursday();
+            }else if (event.getActionCommand().equals("Friday")) {
+                gui.toggleFriday();
+            }else if (event.getActionCommand().equals("Saturday")) {
+                gui.toggleSaturday();
+            }
+        }
+    }
 // APPOINTMENT BUTTONS
-	class appointmentButtonListener implements ActionListener {
-		public void actionPerformed(ActionEvent event) {
-			boolean error = false;
-			if (event.getActionCommand().equals("New")) {
-				appIndex = -1;
-			} 
-			else if (event.getActionCommand().equals("Delete")) {
-				if(gui.getFromIndex(appIndex) != null){
-					appIndex = gui.getSideList().getSelectedIndex();
-					Appointment app = gui.getFromIndex(appIndex);
-					if (app.getRecurring() && !gui.isRecurring()) {
-						cal.removeSpecific(app, gui.getDateField());
-					} else {
-						cal.removeApp(app);
-					}
-					appIndex = -1;
-				}
-				else{
-					popup("Please select an appointment.");
-				}
-			} 
-			else if (event.getActionCommand().equals("Save")) {
-				//error checking
-				if(gui.getTitleField().equals("")){
-					error = true;
-					popup("No Title.");
-				}
-				int n = -1;
-				try{
-					n = Integer.parseInt(gui.getNEqualsField());
-				}catch(Exception e){
-					n = -1;
-				}
-				if(gui.isRecurring() && (gui.getRecurBox() != 0 && n <= 0)){
-					error = true;
-					popup("N must be a number greater than 0.");
-				}
-				else if(gui.isRecurring() && (gui.getRecurBox() == 3 && n > 5)){
-					error = true;
-					popup("No month has more than 5 weeks");
-				}
-				else if(gui.isRecurring() && (gui.getRecurBox() == 2 && n > 31)){
-					error = true;
-					popup("No month has more than 31 days");
-				}
-				else if(gui.isRecurring() && (gui.getRecurBox() == 0 || gui.getRecurBox() == 3)){
-					if(!gui.daysChecked()){
-						error = true;
-						popup("No days checked for recurring.");
-					}
-				}
-				try{
-					String temp;
-					temp = gui.getDateField();
-					String[] date = temp.split("/");
-					int[] date2 = new int[3];
-					for(int i = 0; i < 3; i++){
-						date2[i] = Integer.parseInt(date[i]);
-					}
-					if(date2[1] < 1 || date2[1] > 12){
-						error = true;
-						popup("Month must be between 1 and 12.");
-					}
-					else if(date2[2] > daysInMonth(date2[1], date2[0])){
-						error = true;
-						popup("Selected month only has " + daysInMonth(date2[1], date2[0]) + " days.");
-					}
-				}catch(Exception e){
-					error = true;
-					popup("Date not formatted correctly. \n Year/Month/Day \n" + 
-							"Month must be between 1 and 12. \n" + 
-							"Day must exist in selected month.");
-				}
-				if(!gui.getFullDay()){
-					try{
-						if(gui.getStartTimeField() >= gui.getEndTimeField()){
-							error = true;
-							popup("Start time cannot come before end time.");
-						}
-						else if(gui.getStartTimeField() < 0 || gui.getEndTimeField() < 0){
-							error = true;
-							popup("Cannot have negative times.");
-						}
-						else if(gui.getStartTimeField() > 2400 || gui.getEndTimeField() > 2400){
-							error = true;
-							popup("Cannot have times greater than 24:00");
-						}
-					}catch(Exception e){
-						error = true;
-						popup("The time is not properly formatted. \n HH:MM");
-					}
-				}
-				long stime = 0;
-				long etime = 0;
-				try{
-					stime = gui.getStartTimeField();
-					etime = gui.getEndTimeField();
-					
-				}catch(Exception e){
-					stime = Integer.parseInt(cal.getConfig().get(2));
-					etime = Integer.parseInt(cal.getConfig().get(3));
-				}
-				if(!error){
-					Appointment app = new Appointment( gui.getTitleField(), gui.getDateField(), 
-							gui.getLocationField(), gui.getPriority(), stime, etime,
-							gui.getDescriptionField(), gui.isRecurring(), gui.getRecurBox(), gui.gatherDays(),
-							new ArrayList<String>(), Integer.parseInt(gui.getNEqualsField()), gui.getFullDay(),
-							gui.getConfirm(), gui.getEmailAlarm(), gui.getVisibleAlarm());
-					if(appIndex != -1){
-						Appointment selectedApp = gui.getFromIndex(appIndex);
-						cal.saveEditedApp(selectedApp, app);
-					}else{
-						cal.addAppointment(app);
-					}
-					appIndex = -1;
-					gui.resetSideList();
-				}
-			}
-			if(!error){
-				gui.refreshAll();
-				gui.resetSideList();
-				gui.resetNoteList(appIndex);
-			}
-		}
-	}
+    class appointmentButtonListener implements ActionListener {
+        public void actionPerformed(ActionEvent event) {
+            boolean error = false;
+            if (event.getActionCommand().equals("New")) {
+                appIndex = -1;
+            } 
+            else if (event.getActionCommand().equals("Delete")) {
+                if(gui.getFromIndex(appIndex) != null){
+                    appIndex = gui.getSideList().getSelectedIndex();
+                    Appointment app = gui.getFromIndex(appIndex);
+                    if (app.getRecurring() && !gui.isRecurring()) {
+                        cal.removeSpecific(app, gui.getDateField());
+                    } else {
+                        cal.removeApp(app);
+                    }
+                    appIndex = -1;
+                }
+                else{
+                    popup("Please select an appointment.");
+                }
+            } 
+            else if (event.getActionCommand().equals("Save")) {
+                //error checking
+                if(gui.getTitleField().equals("")){
+                    error = true;
+                    popup("No Title.");
+                }
+                int n = -1;
+                try{
+                    n = Integer.parseInt(gui.getNEqualsField());
+                }catch(Exception e){
+                    n = -1;
+                }
+                if(gui.isRecurring() && (gui.getRecurBox() != 0 && n <= 0)){
+                    error = true;
+                    popup("N must be a number greater than 0.");
+                }
+                else if(gui.isRecurring() && (gui.getRecurBox() == 3 && n > 5)){
+                    error = true;
+                    popup("No month has more than 5 weeks");
+                }
+                else if(gui.isRecurring() && (gui.getRecurBox() == 2 && n > 31)){
+                    error = true;
+                    popup("No month has more than 31 days");
+                }
+                else if(gui.isRecurring() && (gui.getRecurBox() == 0 || gui.getRecurBox() == 3)){
+                    if(!gui.daysChecked()){
+                        error = true;
+                        popup("No days checked for recurring.");
+                    }
+                }
+                try{
+                    String temp;
+                    temp = gui.getDateField();
+                    String[] date = temp.split("/");
+                    int[] date2 = new int[3];
+                    for(int i = 0; i < 3; i++){
+                        date2[i] = Integer.parseInt(date[i]);
+                    }
+                    if(date2[1] < 1 || date2[1] > 12){
+                        error = true;
+                        popup("Month must be between 1 and 12.");
+                    }
+                    else if(date2[2] > daysInMonth(date2[1], date2[0])){
+                        error = true;
+                        popup("Selected month only has " + daysInMonth(date2[1], date2[0]) + " days.");
+                    }
+                }catch(Exception e){
+                    error = true;
+                    popup("Date not formatted correctly. \n Year/Month/Day \n" + 
+                            "Month must be between 1 and 12. \n" + 
+                            "Day must exist in selected month.");
+                }
+                if(!gui.getFullDay()){
+                    try{
+                        if(gui.getStartTimeField() >= gui.getEndTimeField()){
+                            error = true;
+                            popup("Start time cannot come before end time.");
+                        }
+                        else if(gui.getStartTimeField() < 0 || gui.getEndTimeField() < 0){
+                            error = true;
+                            popup("Cannot have negative times.");
+                        }
+                        else if(gui.getStartTimeField() > 2400 || gui.getEndTimeField() > 2400){
+                            error = true;
+                            popup("Cannot have times greater than 24:00");
+                        }
+                    }catch(Exception e){
+                        error = true;
+                        popup("The time is not properly formatted. \n HH:MM");
+                    }
+                }
+                long stime = 0;
+                long etime = 0;
+                try{
+                    stime = gui.getStartTimeField();
+                    etime = gui.getEndTimeField();
+                    
+                }catch(Exception e){
+                    stime = Integer.parseInt(cal.getConfig().get(2));
+                    etime = Integer.parseInt(cal.getConfig().get(3));
+                }
+                if(!error){
+                    Appointment app = new Appointment( gui.getTitleField(), gui.getDateField(), 
+                            gui.getLocationField(), gui.getPriority(), stime, etime,
+                            gui.getDescriptionField(), gui.isRecurring(), gui.getRecurBox(), gui.gatherDays(),
+                            new ArrayList<String>(), Integer.parseInt(gui.getNEqualsField()), gui.getFullDay(),
+                            gui.getConfirm(), gui.getEmailAlarm(), gui.getVisibleAlarm());
+                    if(appIndex != -1){
+                        Appointment selectedApp = gui.getFromIndex(appIndex);
+                        cal.saveEditedApp(selectedApp, app);
+                    }else{
+                        cal.addAppointment(app);
+                    }
+                    appIndex = -1;
+                    gui.resetSideList();
+                }
+            }
+            if(!error){
+                gui.refreshAll();
+                gui.resetSideList();
+                gui.resetNoteList(appIndex);
+            }
+        }
+    }
 // NOTE BUTTONS
-	class noteButtonListener implements ActionListener {
+    class noteButtonListener implements ActionListener {
         Appointment app;
         Note note;
         JFrame frame;
@@ -823,8 +823,8 @@ public class EventListener {
             descPane = new JScrollPane(desc);
             save = new JButton("Save");
             cancel = new JButton("Cancel");
-			save.addActionListener(this);
-			cancel.addActionListener (this);
+            save.addActionListener(this);
+            cancel.addActionListener (this);
             notePanel.setLayout(null);
             
             noteTitle.setBounds(10,10,50,50);
@@ -853,585 +853,585 @@ public class EventListener {
 
         public void actionPerformed(ActionEvent event) {
             if (event.getActionCommand().equals("New")) {
-            	app = gui.getFromIndex(appIndex);
-            	if(app != null){
-            		title.setText("Title");
-            		appointment.setText(app.getTitle());
-            		desc.setText("Description");
-            		frame.setVisible(true);
-            		gui.getNoteList().clearSelection();
-            	}
-            	else{
-            		popup("Please select an appointment.");
-            	}
+                app = gui.getFromIndex(appIndex);
+                if(app != null){
+                    title.setText("Title");
+                    appointment.setText(app.getTitle());
+                    desc.setText("Description");
+                    frame.setVisible(true);
+                    gui.getNoteList().clearSelection();
+                }
+                else{
+                    popup("Please select an appointment.");
+                }
             }
             else if (event.getActionCommand().equals("View")) {
-            	app = gui.getFromIndex(appIndex);
-            	if(app != null){
-            		note = gui.noteIndex(gui.getNoteList().getSelectedIndex());
-            		if(note != null){
-            			title.setText(note.getTitle());
-            			appointment.setText(app.getTitle());
-            			desc.setText(note.getDescription());
-            			frame.setVisible(true);
-            		}
-            		else{
-            			popup("Please select a note to view.");
-            		}
-            	}
-            	else{
-            		popup("Please select an appointment.");
-            	}
+                app = gui.getFromIndex(appIndex);
+                if(app != null){
+                    note = gui.noteIndex(gui.getNoteList().getSelectedIndex());
+                    if(note != null){
+                        title.setText(note.getTitle());
+                        appointment.setText(app.getTitle());
+                        desc.setText(note.getDescription());
+                        frame.setVisible(true);
+                    }
+                    else{
+                        popup("Please select a note to view.");
+                    }
+                }
+                else{
+                    popup("Please select an appointment.");
+                }
             }
             else if (event.getActionCommand().equals("Delete")) {
-            	app = gui.getFromIndex(appIndex);
-            	if(app != null){
-            		note = gui.noteIndex(gui.getNoteList().getSelectedIndex());
-            		if(note != null){
-            			app.deleteNote(note);
-            		}
-            		else{
-            			popup("Please select a note to delete.");
-            		}
-            	}
-            	else{
-            		popup("Please select an appointment.");
-            	}
-        		gui.refreshAll();
+                app = gui.getFromIndex(appIndex);
+                if(app != null){
+                    note = gui.noteIndex(gui.getNoteList().getSelectedIndex());
+                    if(note != null){
+                        app.deleteNote(note);
+                    }
+                    else{
+                        popup("Please select a note to delete.");
+                    }
+                }
+                else{
+                    popup("Please select an appointment.");
+                }
+                gui.refreshAll();
             }
             else if(event.getActionCommand().equals("Cancel")){
                 frame.setVisible(false);
-        		gui.refreshAll();
+                gui.refreshAll();
             }
             else if(event.getActionCommand ().equals("Save")){
-            	app = gui.getFromIndex(appIndex);
-            	if(!title.getText().equals("")){
-            		note = new Note(title.getText(), desc.getText(), app);
-            		if(gui.getNoteList().getSelectedIndex() != -1){
-            			app.deleteNote(gui.noteIndex(gui.getNoteList().getSelectedIndex()));
-            		}
-            		app.addNote(note);
-            		frame.setVisible(false);
-            	}
-            	else{
-            		popup("No Title.");
-            	}
-        		gui.refreshAll();
+                app = gui.getFromIndex(appIndex);
+                if(!title.getText().equals("")){
+                    note = new Note(title.getText(), desc.getText(), app);
+                    if(gui.getNoteList().getSelectedIndex() != -1){
+                        app.deleteNote(gui.noteIndex(gui.getNoteList().getSelectedIndex()));
+                    }
+                    app.addNote(note);
+                    frame.setVisible(false);
+                }
+                else{
+                    popup("No Title.");
+                }
+                gui.refreshAll();
             }
         }
     }
 
 // JLIST LISTENER
-	class listListener implements MouseListener {
-		private JList list;
-		public listListener(JList list) {
-			this.list = list;
-		}
+    class listListener implements MouseListener {
+        private JList list;
+        public listListener(JList list) {
+            this.list = list;
+        }
 
-		public void mouseClicked(MouseEvent event) {
-			if (list.getName().equals("noteList")) {
-				if (event.getClickCount() == 2) {
-					JButton temp = new JButton("View");
-					temp.addActionListener(new noteButtonListener());
-					temp.doClick();
-				}
-			} else if (list.getName().equals("sideList")) {
-            	appIndex = gui.getSideList().getSelectedIndex();
-    			gui.refreshAll();
-			}
-		}
-		public void mouseEntered(MouseEvent event) {}
-		public void mouseExited(MouseEvent event) {}
-		public void mousePressed(MouseEvent event) {}
-		public void mouseReleased(MouseEvent event) {}
-	}
-	class dayListener implements MouseListener {
-		JPanel day;
-		String newCurrent;
-		
-		public dayListener(JPanel day) {
-			this.day = day;
-		}
+        public void mouseClicked(MouseEvent event) {
+            if (list.getName().equals("noteList")) {
+                if (event.getClickCount() == 2) {
+                    JButton temp = new JButton("View");
+                    temp.addActionListener(new noteButtonListener());
+                    temp.doClick();
+                }
+            } else if (list.getName().equals("sideList")) {
+                appIndex = gui.getSideList().getSelectedIndex();
+                gui.refreshAll();
+            }
+        }
+        public void mouseEntered(MouseEvent event) {}
+        public void mouseExited(MouseEvent event) {}
+        public void mousePressed(MouseEvent event) {}
+        public void mouseReleased(MouseEvent event) {}
+    }
+    class dayListener implements MouseListener {
+        JPanel day;
+        String newCurrent;
+        
+        public dayListener(JPanel day) {
+            this.day = day;
+        }
 
-		public void mouseClicked(MouseEvent event) {
-			String[] temp = getSelectedDate().split("/");
-			int[] date = new int[3];
-			for(int i = 0; i < 3; i++){
-				date[i] = Integer.parseInt(temp[i]);
-			}
+        public void mouseClicked(MouseEvent event) {
+            String[] temp = getSelectedDate().split("/");
+            int[] date = new int[3];
+            for(int i = 0; i < 3; i++){
+                date[i] = Integer.parseInt(temp[i]);
+            }
 // MONTH VIEW
-			if (day.getName().equals("nextMonth")) {
-				date[1]++;
-				if(date[1] == 13){
-					date[1] = 1;
-					date[0]++;
-				}
-				if(date[2] >= daysInMonth(date[1], date[0])){
-					date[2] = daysInMonth(date[1], date[0]);
-				}
-				if(date[1] == 2 && date[2] > 28){
-					if(cal.isLeapYear(date[0])){
-						date[2] = 29;
-					}
-					else{
-						date[2] = 28;
-					}
-				}
-				newCurrent = (date[0] + "/" + date[1] + "/" + date[2]);
-			} 
-			else if (day.getName().equals("prevMonth")) {
-				date[1]--;
-				if(date[1] == 0){
-					date[1] = 12;
-					date[0]--;
-				}
-				if(date[2] >= daysInMonth(date[1], date[0])){
-					date[2] = daysInMonth(date[1], date[0]);
-				}
-				if(date[1] == 2 && date[2] > 28){
-					if(cal.isLeapYear(date[0])){
-						date[2] = 29;
-					}
-					else{
-						date[2] = 28;
-					}
-				}
-				newCurrent = (date[0] + "/" + date[1] + "/" + date[2]);
-			}
+            if (day.getName().equals("nextMonth")) {
+                date[1]++;
+                if(date[1] == 13){
+                    date[1] = 1;
+                    date[0]++;
+                }
+                if(date[2] >= daysInMonth(date[1], date[0])){
+                    date[2] = daysInMonth(date[1], date[0]);
+                }
+                if(date[1] == 2 && date[2] > 28){
+                    if(cal.isLeapYear(date[0])){
+                        date[2] = 29;
+                    }
+                    else{
+                        date[2] = 28;
+                    }
+                }
+                newCurrent = (date[0] + "/" + date[1] + "/" + date[2]);
+            } 
+            else if (day.getName().equals("prevMonth")) {
+                date[1]--;
+                if(date[1] == 0){
+                    date[1] = 12;
+                    date[0]--;
+                }
+                if(date[2] >= daysInMonth(date[1], date[0])){
+                    date[2] = daysInMonth(date[1], date[0]);
+                }
+                if(date[1] == 2 && date[2] > 28){
+                    if(cal.isLeapYear(date[0])){
+                        date[2] = 29;
+                    }
+                    else{
+                        date[2] = 28;
+                    }
+                }
+                newCurrent = (date[0] + "/" + date[1] + "/" + date[2]);
+            }
 // WEEK VIEW
-			else if (day.getName().equals("prevWeek")) {
-				date[2] -= 7;
-				if(date[2] < 1){
-					date[1]--;
-					date[2] += daysInMonth(date[1], date[0]);
-					if(date[1] < 1){
-						date[0]--;
-						date[1] = 12;
-					}
-				}
-				newCurrent = date[0] + "/" + date[1] + "/" + date[2];
-			}
-			else if (day.getName().equals("nextWeek")) {
-				date[2] += 7;
-				int month = date[1];
-				if(date[2] > daysInMonth(month, date[0])){
-					date[1]++;
-					date[2] -= daysInMonth(month, date[0]);
-					if(date[1] > 12){
-						date[0]++;
-						date[1] = 1;
-					}
-				}
-				newCurrent = date[0] + "/" + date[1] + "/" + date[2];
-			}
+            else if (day.getName().equals("prevWeek")) {
+                date[2] -= 7;
+                if(date[2] < 1){
+                    date[1]--;
+                    date[2] += daysInMonth(date[1], date[0]);
+                    if(date[1] < 1){
+                        date[0]--;
+                        date[1] = 12;
+                    }
+                }
+                newCurrent = date[0] + "/" + date[1] + "/" + date[2];
+            }
+            else if (day.getName().equals("nextWeek")) {
+                date[2] += 7;
+                int month = date[1];
+                if(date[2] > daysInMonth(month, date[0])){
+                    date[1]++;
+                    date[2] -= daysInMonth(month, date[0]);
+                    if(date[1] > 12){
+                        date[0]++;
+                        date[1] = 1;
+                    }
+                }
+                newCurrent = date[0] + "/" + date[1] + "/" + date[2];
+            }
 // DAY VIEW
-			else if(day.getName().equals("Previous Day")){
-				date[2]--;
-				if(date[2] == 0){
-					date[1]--;
-					if(date[1] == 0){
-						date[1] = 12;
-						date[0]--;
-					}
-					date[2] = daysInMonth(date[1], date[0]);
-				}
-				newCurrent = date[0] + "/" + date[1] + "/" + date[2];
-			}else if(day.getName().equals("Next Day")){
-				
-				date[2]++;
-				if(date[2] > daysInMonth(date[1], date[0])){
-					date[2] = 1;
-					date[1]++;
-				}
-				if(date[1] == 13){
-					date[1] = 1;
-					date[0]++;
-				}
-				newCurrent = date[0] + "/" + date[1] + "/" + date[2];
-			}
+            else if(day.getName().equals("Previous Day")){
+                date[2]--;
+                if(date[2] == 0){
+                    date[1]--;
+                    if(date[1] == 0){
+                        date[1] = 12;
+                        date[0]--;
+                    }
+                    date[2] = daysInMonth(date[1], date[0]);
+                }
+                newCurrent = date[0] + "/" + date[1] + "/" + date[2];
+            }else if(day.getName().equals("Next Day")){
+                
+                date[2]++;
+                if(date[2] > daysInMonth(date[1], date[0])){
+                    date[2] = 1;
+                    date[1]++;
+                }
+                if(date[1] == 13){
+                    date[1] = 1;
+                    date[0]++;
+                }
+                newCurrent = date[0] + "/" + date[1] + "/" + date[2];
+            }
 // DAY
-			else{
-				newCurrent = day.getName();
-				if(event.getClickCount() == 2){
-					currentView = 3;
-				}
-			}
-			cal.setCurrentDate(newCurrent);
-			appIndex = -1;
-			gui.refreshAll();
-		}
+            else{
+                newCurrent = day.getName();
+                if(event.getClickCount() == 2){
+                    currentView = 3;
+                }
+            }
+            cal.setCurrentDate(newCurrent);
+            appIndex = -1;
+            gui.refreshAll();
+        }
   
-		public void mouseEntered(MouseEvent e) {
-		}
+        public void mouseEntered(MouseEvent e) {
+        }
 
-		public void mouseExited(MouseEvent e) {
-		}
+        public void mouseExited(MouseEvent e) {
+        }
 
-		public void mousePressed(MouseEvent e) {
-		}
+        public void mousePressed(MouseEvent e) {
+        }
 
-		public void mouseReleased(MouseEvent e) {
-		}
-	}
-	class appListener implements MouseListener {
-		JPanel panel;
-		public appListener(JPanel panel){
-			this.panel = panel;
-		}
-		public void mouseClicked(MouseEvent arg0) {
-			String[] date = panel.getName().split("/");
-			appIndex = Integer.parseInt(date[3]);
-			gui.refreshAll();
-		}
-		public void mouseEntered(MouseEvent arg0) {}
-		public void mouseExited(MouseEvent arg0) {}
-		public void mousePressed(MouseEvent arg0) {}
-		public void mouseReleased(MouseEvent arg0) {}
-	}
-	class myWindowListener extends WindowAdapter{
-		public void windowClosing(WindowEvent event){
-			if(cal.isModified() && savePopup()){
-				gui.exit();
-				
-			}
-		}
-	}
+        public void mouseReleased(MouseEvent e) {
+        }
+    }
+    class appListener implements MouseListener {
+        JPanel panel;
+        public appListener(JPanel panel){
+            this.panel = panel;
+        }
+        public void mouseClicked(MouseEvent arg0) {
+            String[] date = panel.getName().split("/");
+            appIndex = Integer.parseInt(date[3]);
+            gui.refreshAll();
+        }
+        public void mouseEntered(MouseEvent arg0) {}
+        public void mouseExited(MouseEvent arg0) {}
+        public void mousePressed(MouseEvent arg0) {}
+        public void mouseReleased(MouseEvent arg0) {}
+    }
+    class myWindowListener extends WindowAdapter{
+        public void windowClosing(WindowEvent event){
+            if(cal.isModified() && savePopup()){
+                gui.exit();
+                
+            }
+        }
+    }
 //PRIVATE CLASSES AND METHODS
-	private boolean savePopup(){
-		int answer = JOptionPane.showConfirmDialog(null, "Changes were found. \n Would you like to save?", "Save?", JOptionPane.YES_NO_CANCEL_OPTION);
-		if(answer == 2){
-			return false;
-		}
-		if(answer == 0){
-			JButton temp = new JButton("Save");
-			temp.addActionListener(new buttonListener());
-			temp.doClick();
-		}
-		return true;
-	}
-	private void buildDefaultApp(){
-		ArrayList<String> config = cal.getConfig();
-		defaultAppointment = new Appointment(config.get(1), getSelectedDate(),
-				config.get(5), Integer.parseInt(config.get(6)), Integer.parseInt(config.get(2)), 
-				Integer.parseInt(config.get(3)), config.get(7), defaultRecurring, 
-				defaultTypeOfRecurring, defaultDaysOfWeek, defaultExceptList, 
-				defaultN, isTrue(config.get(4)), isTrue(config.get(10)), isTrue(config.get(9)), 
-				isTrue(config.get(8)));
-	}
-	private boolean isTrue(String str){
-		if(str.equals("true")){
-			return true;
-		}
-		return false;
-	}
-	private void popup(String str){
-		JOptionPane.showMessageDialog(null, str, "Error",JOptionPane.INFORMATION_MESSAGE);
-	}
-	private class goToDate implements ActionListener{
-		JFrame frame;
-		Container container;
-		JComboBox year;
-		JComboBox month;
-		JComboBox day;
-		JLabel label;
-		JPanel slash3;
-		JPanel slash4;
-		JLabel slash;
-		JLabel slash2;
-		JButton ok;
-		String[]today;
-		public goToDate(){
-			frame = new JFrame("Enter Date...");
-			container = frame.getContentPane();
-			container.setLayout(new GridLayout(1,0,5,5));
-			today = cal.getToday().split("/");
-			year = new JComboBox();
-			for(int i = -50; i < 50; i++){
-				year.addItem(i + Integer.parseInt(today[0]));
-			}
-			year.setSelectedItem(Integer.parseInt(today[0]));
-			year.addActionListener(this);
-			year.setActionCommand("year");
-			month = new JComboBox(new Object[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12});
-			month.setSelectedItem(Integer.parseInt(today[1]));
-			month.addActionListener(this);
-			label = new JLabel("Enter Date:");
-			slash3 = new JPanel();
-			slash4 = new JPanel();
-			slash = new JLabel("/");
-			slash2 = new JLabel("/");
-			slash3.add(slash);
-			slash4.add(slash2);
-			ok = new JButton("OK");
-			ok.addActionListener(this);
-			draw();
-			day.setSelectedItem(Integer.parseInt(today[2]));
-		}
-		public void actionPerformed(ActionEvent event){
-			if(event.getActionCommand().equals("year")){
-				Object temp = year.getSelectedItem();
-				year = new JComboBox();
-				for(int i = -50; i < 50; i++){
-					year.addItem(i + Integer.parseInt(temp + ""));
-				}
-				year.setSelectedItem(Integer.parseInt(temp + ""));
-				year.addActionListener(this);
-				year.setActionCommand("year");
-			}
-			if(event.getActionCommand().equals("OK")){
-				cal.setCurrentDate(Integer.parseInt(year.getSelectedItem() + "") + 
-						"/" + (Integer.parseInt(month.getSelectedItem() + "")) + 
-						"/" + Integer.parseInt(day.getSelectedItem() + ""));
-				frame.dispose();
-				gui.resetSideList();
-				gui.refreshAll();
-			}
-			else{
-				int temp = day.getSelectedIndex();
-				container.removeAll();
-				draw();
-				day.setSelectedIndex(temp);
-			}
-		}
-		private void draw(){
-			day = new JComboBox();
-			for(int i = 1; i <= daysInMonth(month.getSelectedIndex()+1, Integer.parseInt(year.getSelectedItem()+"")); i++){
-				day.addItem(i);
-			}
-			container.add(label);
-			container.add(month);
-			container.add(slash3);
-			container.add(day);
-			container.add(slash4);
-			container.add(year);
-			container.add(ok);
-			frame.pack();
-			frame.setLocation(200,200);
-			frame.setVisible(true);
-		}
-	}
-	private class prefPopup implements ActionListener{
-		JFrame frame;
-		JLabel title, STime, ETime, fullDay, location, priority, description, 
-			visibleAlarm, emailAlarm, alarmTime, confirmed, from1, password1, smtp1, port1, recpt1, cal1;
-		JTextField title2, STime2, ETime2, location2, description2, alarmTime2, from2, smtp2, port2, recpt2;
-		JTextField password2;
-		JCheckBox fullDay2, visibleAlarm2, emailAlarm2, confirmed2;
-		JComboBox priority2;
-		String[] prior;
-		JButton save, cancel, cal2;
-		String file;
-		public prefPopup(){
-			prior = new String[]{"Low", "Medium", "High"};
-			frame = new JFrame("Preferences");
-			frame.setLayout(new GridLayout(0,2,5,5));
-			
-			title = new JLabel("Default Title: ");
-			STime = new JLabel("Default Start Time: ");
-			ETime = new JLabel("Default End Time: ");
-			fullDay = new JLabel("Default Full Day: ");
-			location = new JLabel("Default Location: ");
-			priority = new JLabel("Default Priority: ");
-			description = new JLabel("Default Description: ");
-			visibleAlarm = new JLabel("Default Visible Alarm: ");
-			emailAlarm = new JLabel("Default Email Alarm: ");
-			alarmTime = new JLabel("Alarm Warning Time");
-			confirmed = new JLabel("Default Confirmed: ");
-			from1 = new JLabel("From: ");
-			password1 = new JLabel("Password: ");
-			smtp1 = new JLabel("SMTP: ");
-			port1 = new JLabel("Port: ");
-			recpt1 = new JLabel("Recpt: ");
-			cal1 = new JLabel("Default Calendar: ");
-			
-			title2 = new JTextField(defaultAppointment.getTitle());
-			STime2 = new JTextField("" + defaultAppointment.getStartTime());
-			ETime2 = new JTextField("" + defaultAppointment.getEndTime());
-			fullDay2 = new JCheckBox();
-			fullDay2.setSelected(defaultAppointment.getFullDay());
-			location2 = new JTextField(defaultAppointment.getLocation());
-			priority2 = new JComboBox(prior);
-			priority2.setSelectedIndex(Integer.parseInt(cal.getConfig().get(6)));
-			description2 = new JTextField(defaultAppointment.getDesc());
-			visibleAlarm2 = new JCheckBox();
-			visibleAlarm2.setSelected(defaultAppointment.getVisibleAlarm());
-			emailAlarm2 = new JCheckBox();
-			emailAlarm2.setSelected(defaultAppointment.getEmailAlarm());
-			confirmed2 = new JCheckBox();
-			confirmed2.setSelected(defaultAppointment.getConfirmed());
-			alarmTime2 = new JTextField(cal.getConfig().get(11));
-			from2 = new JTextField(cal.getConfig().get(12));
-			password2 = new JTextField(cal.getConfig().get(13));
-			smtp2 = new JTextField(cal.getConfig().get(14));
-			port2 = new JTextField(cal.getConfig().get(15));
-			recpt2 = new JTextField(cal.getConfig().get(16));
-			
-			cal2 = new JButton("Browse...");
-			save = new JButton("Save");
-			cancel = new JButton("Cancel");
-			cal2.addActionListener(this);
-			save.addActionListener(this);
-			cancel.addActionListener(this);
-			
-			frame.add(title);
-			frame.add(title2);
-			frame.add(STime);
-			frame.add(STime2);
-			frame.add(ETime);
-			frame.add(ETime2);
-			frame.add(fullDay);
-			frame.add(fullDay2);
-			frame.add(location);
-			frame.add(location2);
-			frame.add(priority);
-			frame.add(priority2);
-			frame.add(description);
-			frame.add(description2);
-			frame.add(visibleAlarm);
-			frame.add(visibleAlarm2);
-			frame.add(emailAlarm);
-			frame.add(emailAlarm2);
-			frame.add(confirmed);
-			frame.add(confirmed2);
-			frame.add(alarmTime);
-			frame.add(alarmTime2);
-			frame.add(from1);
-			frame.add(from2);
-			frame.add(password1);
-			frame.add(password2);
-			frame.add(smtp1);
-			frame.add(smtp2);
-			frame.add(port1);
-			frame.add(port2);
-			frame.add(recpt1);
-			frame.add(recpt2);
-			frame.add(cal1);
-			frame.add(cal2);
-			frame.add(save);
-			frame.add(cancel);
-			
-			frame.pack();
-			frame.setLocation(400,400);
-			frame.setVisible(true);
-		}
-		public void actionPerformed(ActionEvent event) {
-			if(event.getActionCommand().equals("Save")){
-				boolean error = false;
-				if(title2.getText().equals("")){
-					error = true;
-					popup("Must have title.");
-				}
-				else if(from2.getText().equals("")){
-					error = true;
-					popup("Must have email address to send from.");
-				}
-				else if(password2.getText().equals("")){
-					error = true;
-					popup("Must have password for email address.");
-				}
-				else if(smtp2.getText().equals("")){
-					error = true;
-					popup("Must have SMTP to send email.");
-				}
-				else if(password2.getText().equals("")){
-					error = true;
-					popup("Must have password for email address.");
-				}
-				else if(recpt2.getText().equals("")){
-					error = true;
-					popup("Must have recipient email address.");
-				}
-				try{
-					if(Integer.parseInt(STime2.getText()) > Integer.parseInt(ETime2.getText())){
-						error = true;
-						popup("Start time cannot come before end time.");
-					}
-					else if(Integer.parseInt(STime2.getText()) < 0 || Integer.parseInt(ETime2.getText()) < 0){
-						error = true;
-						popup("Cannot have negative times.");
-					}
-					else if(Integer.parseInt(STime2.getText()) > 2400 || Integer.parseInt(ETime2.getText()) > 2400){
-						error = true;
-						popup("Cannot have times greater than 24:00");
-					}
-				}catch(Exception e){
-					error = true;
-					popup("The time is not properly formatted. \n HHMM   -   No Colon");
-				}
-				try{
-					if(Integer.parseInt(port2.getText()) < 0){
-						error = true;
-						popup("Port number cannot be negative.");
-					}
-					else if(Integer.parseInt(port2.getText()) > 65535){
-						error = true;
-						popup("Port number cannot be greater than 65535.");
-					}
-					else if(port2.getText().equals("")){
-						error = true;
-						popup("Must have a port number.");
-					}
-				}catch(Exception e){
-					error = true;
-					popup("Port number must be a number between 0 and 65535");
-				}
-				try{
-					if(alarmTime2.getText().equals("")){
-						error = true;
-						popup("Must have alarm warning time.");
-					}
-					else if(Integer.parseInt(alarmTime2.getText()) < 0){
-						error = true;
-						popup("Alarm warning time must be greater than 0");
-					}
-				}catch(Exception e){
-					error = true;
-					popup("Alarm warning time must be a number greater than 0.");
-				}
-				/*if(title2.getText().contains(" ") || location2.getText().contains(" ") || 
-						description2.getText().contains(" ") || from2.getText().contains(" ") ||
-						password2.getText().contains(" ") || smtp2.getText().contains(" ") || 
-						recpt2.getText().contains(" ")){
-					error = true;
-					popup("Please, No Spaces.");
-				}*/
-				if(!error){
-					ArrayList<String> newConfig = new ArrayList<String>();
-					newConfig.add(file);
-					newConfig.add(title2.getText());
-					newConfig.add(STime2.getText());
-					newConfig.add(ETime2.getText());
-					newConfig.add(fullDay2.isSelected() + "");
-					newConfig.add(location2.getText());
-					newConfig.add(priority2.getSelectedIndex() + "");
-					newConfig.add(description2.getText());
-					newConfig.add(visibleAlarm2.isSelected() + "");
-					newConfig.add(emailAlarm2.isSelected() + "");
-					newConfig.add(confirmed2.isSelected() + "");
-					newConfig.add(alarmTime2.getText());
-					newConfig.add(from2.getText());
-					newConfig.add(password2.getText());
-					newConfig.add(smtp2.getText());
-					newConfig.add(port2.getText());
-					newConfig.add(recpt2.getText());
-					cal.updateConfig(newConfig);
-					buildDefaultApp();
-					frame.dispose();
-				}
-			}
-			else if(event.getActionCommand().equals("Cancel")){
-				frame.dispose();
-			}
-			else if(event.getActionCommand().equals("Browse...")){
-				JFrame frame = new JFrame("Open");
-				JFileChooser popup = new JFileChooser();
-				popup.showOpenDialog(frame);
+    private boolean savePopup(){
+        int answer = JOptionPane.showConfirmDialog(null, "Changes were found. \n Would you like to save?", "Save?", JOptionPane.YES_NO_CANCEL_OPTION);
+        if(answer == 2){
+            return false;
+        }
+        if(answer == 0){
+            JButton temp = new JButton("Save");
+            temp.addActionListener(new buttonListener());
+            temp.doClick();
+        }
+        return true;
+    }
+    private void buildDefaultApp(){
+        ArrayList<String> config = cal.getConfig();
+        defaultAppointment = new Appointment(config.get(1), getSelectedDate(),
+                config.get(5), Integer.parseInt(config.get(6)), Integer.parseInt(config.get(2)), 
+                Integer.parseInt(config.get(3)), config.get(7), defaultRecurring, 
+                defaultTypeOfRecurring, defaultDaysOfWeek, defaultExceptList, 
+                defaultN, isTrue(config.get(4)), isTrue(config.get(10)), isTrue(config.get(9)), 
+                isTrue(config.get(8)));
+    }
+    private boolean isTrue(String str){
+        if(str.equals("true")){
+            return true;
+        }
+        return false;
+    }
+    private void popup(String str){
+        JOptionPane.showMessageDialog(null, str, "Error",JOptionPane.INFORMATION_MESSAGE);
+    }
+    private class goToDate implements ActionListener{
+        JFrame frame;
+        Container container;
+        JComboBox year;
+        JComboBox month;
+        JComboBox day;
+        JLabel label;
+        JPanel slash3;
+        JPanel slash4;
+        JLabel slash;
+        JLabel slash2;
+        JButton ok;
+        String[]today;
+        public goToDate(){
+            frame = new JFrame("Enter Date...");
+            container = frame.getContentPane();
+            container.setLayout(new GridLayout(1,0,5,5));
+            today = cal.getToday().split("/");
+            year = new JComboBox();
+            for(int i = -50; i < 50; i++){
+                year.addItem(i + Integer.parseInt(today[0]));
+            }
+            year.setSelectedItem(Integer.parseInt(today[0]));
+            year.addActionListener(this);
+            year.setActionCommand("year");
+            month = new JComboBox(new Object[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12});
+            month.setSelectedItem(Integer.parseInt(today[1]));
+            month.addActionListener(this);
+            label = new JLabel("Enter Date:");
+            slash3 = new JPanel();
+            slash4 = new JPanel();
+            slash = new JLabel("/");
+            slash2 = new JLabel("/");
+            slash3.add(slash);
+            slash4.add(slash2);
+            ok = new JButton("OK");
+            ok.addActionListener(this);
+            draw();
+            day.setSelectedItem(Integer.parseInt(today[2]));
+        }
+        public void actionPerformed(ActionEvent event){
+            if(event.getActionCommand().equals("year")){
+                Object temp = year.getSelectedItem();
+                year = new JComboBox();
+                for(int i = -50; i < 50; i++){
+                    year.addItem(i + Integer.parseInt(temp + ""));
+                }
+                year.setSelectedItem(Integer.parseInt(temp + ""));
+                year.addActionListener(this);
+                year.setActionCommand("year");
+            }
+            if(event.getActionCommand().equals("OK")){
+                cal.setCurrentDate(Integer.parseInt(year.getSelectedItem() + "") + 
+                        "/" + (Integer.parseInt(month.getSelectedItem() + "")) + 
+                        "/" + Integer.parseInt(day.getSelectedItem() + ""));
+                frame.dispose();
+                gui.resetSideList();
+                gui.refreshAll();
+            }
+            else{
+                int temp = day.getSelectedIndex();
+                container.removeAll();
+                draw();
+                day.setSelectedIndex(temp);
+            }
+        }
+        private void draw(){
+            day = new JComboBox();
+            for(int i = 1; i <= daysInMonth(month.getSelectedIndex()+1, Integer.parseInt(year.getSelectedItem()+"")); i++){
+                day.addItem(i);
+            }
+            container.add(label);
+            container.add(month);
+            container.add(slash3);
+            container.add(day);
+            container.add(slash4);
+            container.add(year);
+            container.add(ok);
+            frame.pack();
+            frame.setLocation(200,200);
+            frame.setVisible(true);
+        }
+    }
+    private class prefPopup implements ActionListener{
+        JFrame frame;
+        JLabel title, STime, ETime, fullDay, location, priority, description, 
+            visibleAlarm, emailAlarm, alarmTime, confirmed, from1, password1, smtp1, port1, recpt1, cal1;
+        JTextField title2, STime2, ETime2, location2, description2, alarmTime2, from2, smtp2, port2, recpt2;
+        JTextField password2;
+        JCheckBox fullDay2, visibleAlarm2, emailAlarm2, confirmed2;
+        JComboBox priority2;
+        String[] prior;
+        JButton save, cancel, cal2;
+        String file;
+        public prefPopup(){
+            prior = new String[]{"Low", "Medium", "High"};
+            frame = new JFrame("Preferences");
+            frame.setLayout(new GridLayout(0,2,5,5));
+            
+            title = new JLabel("Default Title: ");
+            STime = new JLabel("Default Start Time: ");
+            ETime = new JLabel("Default End Time: ");
+            fullDay = new JLabel("Default Full Day: ");
+            location = new JLabel("Default Location: ");
+            priority = new JLabel("Default Priority: ");
+            description = new JLabel("Default Description: ");
+            visibleAlarm = new JLabel("Default Visible Alarm: ");
+            emailAlarm = new JLabel("Default Email Alarm: ");
+            alarmTime = new JLabel("Alarm Warning Time");
+            confirmed = new JLabel("Default Confirmed: ");
+            from1 = new JLabel("From: ");
+            password1 = new JLabel("Password: ");
+            smtp1 = new JLabel("SMTP: ");
+            port1 = new JLabel("Port: ");
+            recpt1 = new JLabel("Recpt: ");
+            cal1 = new JLabel("Default Calendar: ");
+            
+            title2 = new JTextField(defaultAppointment.getTitle());
+            STime2 = new JTextField("" + defaultAppointment.getStartTime());
+            ETime2 = new JTextField("" + defaultAppointment.getEndTime());
+            fullDay2 = new JCheckBox();
+            fullDay2.setSelected(defaultAppointment.getFullDay());
+            location2 = new JTextField(defaultAppointment.getLocation());
+            priority2 = new JComboBox(prior);
+            priority2.setSelectedIndex(Integer.parseInt(cal.getConfig().get(6)));
+            description2 = new JTextField(defaultAppointment.getDesc());
+            visibleAlarm2 = new JCheckBox();
+            visibleAlarm2.setSelected(defaultAppointment.getVisibleAlarm());
+            emailAlarm2 = new JCheckBox();
+            emailAlarm2.setSelected(defaultAppointment.getEmailAlarm());
+            confirmed2 = new JCheckBox();
+            confirmed2.setSelected(defaultAppointment.getConfirmed());
+            alarmTime2 = new JTextField(cal.getConfig().get(11));
+            from2 = new JTextField(cal.getConfig().get(12));
+            password2 = new JTextField(cal.getConfig().get(13));
+            smtp2 = new JTextField(cal.getConfig().get(14));
+            port2 = new JTextField(cal.getConfig().get(15));
+            recpt2 = new JTextField(cal.getConfig().get(16));
+            
+            cal2 = new JButton("Browse...");
+            save = new JButton("Save");
+            cancel = new JButton("Cancel");
+            cal2.addActionListener(this);
+            save.addActionListener(this);
+            cancel.addActionListener(this);
+            
+            frame.add(title);
+            frame.add(title2);
+            frame.add(STime);
+            frame.add(STime2);
+            frame.add(ETime);
+            frame.add(ETime2);
+            frame.add(fullDay);
+            frame.add(fullDay2);
+            frame.add(location);
+            frame.add(location2);
+            frame.add(priority);
+            frame.add(priority2);
+            frame.add(description);
+            frame.add(description2);
+            frame.add(visibleAlarm);
+            frame.add(visibleAlarm2);
+            frame.add(emailAlarm);
+            frame.add(emailAlarm2);
+            frame.add(confirmed);
+            frame.add(confirmed2);
+            frame.add(alarmTime);
+            frame.add(alarmTime2);
+            frame.add(from1);
+            frame.add(from2);
+            frame.add(password1);
+            frame.add(password2);
+            frame.add(smtp1);
+            frame.add(smtp2);
+            frame.add(port1);
+            frame.add(port2);
+            frame.add(recpt1);
+            frame.add(recpt2);
+            frame.add(cal1);
+            frame.add(cal2);
+            frame.add(save);
+            frame.add(cancel);
+            
+            frame.pack();
+            frame.setLocation(400,400);
+            frame.setVisible(true);
+        }
+        public void actionPerformed(ActionEvent event) {
+            if(event.getActionCommand().equals("Save")){
+                boolean error = false;
+                if(title2.getText().equals("")){
+                    error = true;
+                    popup("Must have title.");
+                }
+                else if(from2.getText().equals("")){
+                    error = true;
+                    popup("Must have email address to send from.");
+                }
+                else if(password2.getText().equals("")){
+                    error = true;
+                    popup("Must have password for email address.");
+                }
+                else if(smtp2.getText().equals("")){
+                    error = true;
+                    popup("Must have SMTP to send email.");
+                }
+                else if(password2.getText().equals("")){
+                    error = true;
+                    popup("Must have password for email address.");
+                }
+                else if(recpt2.getText().equals("")){
+                    error = true;
+                    popup("Must have recipient email address.");
+                }
+                try{
+                    if(Integer.parseInt(STime2.getText()) > Integer.parseInt(ETime2.getText())){
+                        error = true;
+                        popup("Start time cannot come before end time.");
+                    }
+                    else if(Integer.parseInt(STime2.getText()) < 0 || Integer.parseInt(ETime2.getText()) < 0){
+                        error = true;
+                        popup("Cannot have negative times.");
+                    }
+                    else if(Integer.parseInt(STime2.getText()) > 2400 || Integer.parseInt(ETime2.getText()) > 2400){
+                        error = true;
+                        popup("Cannot have times greater than 24:00");
+                    }
+                }catch(Exception e){
+                    error = true;
+                    popup("The time is not properly formatted. \n HHMM   -   No Colon");
+                }
+                try{
+                    if(Integer.parseInt(port2.getText()) < 0){
+                        error = true;
+                        popup("Port number cannot be negative.");
+                    }
+                    else if(Integer.parseInt(port2.getText()) > 65535){
+                        error = true;
+                        popup("Port number cannot be greater than 65535.");
+                    }
+                    else if(port2.getText().equals("")){
+                        error = true;
+                        popup("Must have a port number.");
+                    }
+                }catch(Exception e){
+                    error = true;
+                    popup("Port number must be a number between 0 and 65535");
+                }
+                try{
+                    if(alarmTime2.getText().equals("")){
+                        error = true;
+                        popup("Must have alarm warning time.");
+                    }
+                    else if(Integer.parseInt(alarmTime2.getText()) < 0){
+                        error = true;
+                        popup("Alarm warning time must be greater than 0");
+                    }
+                }catch(Exception e){
+                    error = true;
+                    popup("Alarm warning time must be a number greater than 0.");
+                }
+                /*if(title2.getText().contains(" ") || location2.getText().contains(" ") || 
+                        description2.getText().contains(" ") || from2.getText().contains(" ") ||
+                        password2.getText().contains(" ") || smtp2.getText().contains(" ") || 
+                        recpt2.getText().contains(" ")){
+                    error = true;
+                    popup("Please, No Spaces.");
+                }*/
+                if(!error){
+                    ArrayList<String> newConfig = new ArrayList<String>();
+                    newConfig.add(file);
+                    newConfig.add(title2.getText());
+                    newConfig.add(STime2.getText());
+                    newConfig.add(ETime2.getText());
+                    newConfig.add(fullDay2.isSelected() + "");
+                    newConfig.add(location2.getText());
+                    newConfig.add(priority2.getSelectedIndex() + "");
+                    newConfig.add(description2.getText());
+                    newConfig.add(visibleAlarm2.isSelected() + "");
+                    newConfig.add(emailAlarm2.isSelected() + "");
+                    newConfig.add(confirmed2.isSelected() + "");
+                    newConfig.add(alarmTime2.getText());
+                    newConfig.add(from2.getText());
+                    newConfig.add(password2.getText());
+                    newConfig.add(smtp2.getText());
+                    newConfig.add(port2.getText());
+                    newConfig.add(recpt2.getText());
+                    cal.updateConfig(newConfig);
+                    buildDefaultApp();
+                    frame.dispose();
+                }
+            }
+            else if(event.getActionCommand().equals("Cancel")){
+                frame.dispose();
+            }
+            else if(event.getActionCommand().equals("Browse...")){
+                JFrame frame = new JFrame("Open");
+                JFileChooser popup = new JFileChooser();
+                popup.showOpenDialog(frame);
 
-				if (popup.getSelectedFile() != null) {
-					file = popup.getSelectedFile().getPath();
-				}
-			}
-			gui.refreshAll();
-		}
-	}
+                if (popup.getSelectedFile() != null) {
+                    file = popup.getSelectedFile().getPath();
+                }
+            }
+            gui.refreshAll();
+        }
+    }
 }

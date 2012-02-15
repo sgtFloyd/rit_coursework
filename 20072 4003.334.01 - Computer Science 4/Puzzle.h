@@ -1,5 +1,5 @@
 /*
- * Puzzle.h	
+ * Puzzle.h 
  *
  * Description: Puzzle interface that all puzzles implement.
  *

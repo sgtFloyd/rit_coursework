@@ -1,5 +1,5 @@
 /*
- * Solver.cpp	
+ * Solver.cpp
  *
  * Description: The solver program to find a solution to the clock puzzle
  *

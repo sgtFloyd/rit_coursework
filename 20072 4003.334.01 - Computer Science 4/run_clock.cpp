@@ -1,5 +1,5 @@
 /*
- * clock.cpp	
+ * clock.cpp
  *
  * Description: Main program for the clock puzzle
  *

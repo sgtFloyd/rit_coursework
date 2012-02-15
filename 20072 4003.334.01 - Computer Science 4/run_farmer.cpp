@@ -1,5 +1,5 @@
 /*
- * farmer.cpp	
+ * farmer.cpp
  *
  * Description: Main program for the farmer puzzle
  *
@@ -35,4 +35,3 @@ int main( int aggc, char* argv[] ) {
   f.display(answer);
 
 };
-  

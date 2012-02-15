@@ -1,5 +1,5 @@
 /*
- * Clock.cpp	
+ * Clock.cpp    
  *
  * Description: Clock object created by the main program that is passed to
  *              the solver to find the solution

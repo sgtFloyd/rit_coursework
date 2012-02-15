@@ -1,5 +1,5 @@
 /*
- * Clock.h	
+ * Clock.h  
  *
  * Description: Clock class for the puzzle
  *

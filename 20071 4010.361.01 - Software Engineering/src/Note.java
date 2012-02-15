@@ -25,61 +25,61 @@ import java.io.Serializable;
  * @author Gabriel Smith
  */
 public class Note implements Serializable{
-	private String title;
-	private String description;
-	private Appointment host;
-	static final long serialVersionUID = 123;
-	
-	//default constructor
-	public Note(){
-		this("", "", null);
-	}
-	
-	//constructor
-	public Note(String title, String description, Appointment host) {
-		this.title = title;
-		this.description = description;
-		this.host = host;
-	}
-	
-	public void setTitle(String title){
-		this.title = title;
-	}
-	
-	/**
-	 * @return the title of the note
-	 */
-	public String getTitle(){
-		return title;
-	}
-	
-	/** 
-	 * @param description the description for this note
-	 */
-	
-	public void setDescription(String description) {
-		this.description = description;
-	}
-	
-	/**
-	 * @return the description of the note
-	 */
-	public String getDescription() {
-		return description;
-	}
-	
-	/**
-	 * @param host 	the appointment that this note belongs to
-	 */
-	
-	public void setHost(Appointment host) {
-		this.host = host;
-	}
-	
-	/**
-	 * @return the host appointment of the note
-	 */
-	public Appointment getHost() {
-		return host;
-	}
+    private String title;
+    private String description;
+    private Appointment host;
+    static final long serialVersionUID = 123;
+    
+    //default constructor
+    public Note(){
+        this("", "", null);
+    }
+    
+    //constructor
+    public Note(String title, String description, Appointment host) {
+        this.title = title;
+        this.description = description;
+        this.host = host;
+    }
+    
+    public void setTitle(String title){
+        this.title = title;
+    }
+    
+    /**
+     * @return the title of the note
+     */
+    public String getTitle(){
+        return title;
+    }
+    
+    /** 
+     * @param description the description for this note
+     */
+    
+    public void setDescription(String description) {
+        this.description = description;
+    }
+    
+    /**
+     * @return the description of the note
+     */
+    public String getDescription() {
+        return description;
+    }
+    
+    /**
+     * @param host  the appointment that this note belongs to
+     */
+    
+    public void setHost(Appointment host) {
+        this.host = host;
+    }
+    
+    /**
+     * @return the host appointment of the note
+     */
+    public Appointment getHost() {
+        return host;
+    }
 }

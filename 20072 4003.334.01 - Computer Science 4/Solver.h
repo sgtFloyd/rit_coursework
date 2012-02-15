@@ -1,5 +1,5 @@
 /*
- * Solver.h	
+ * Solver.h
  *
  * Description: Solver class to find the solution to the given puzzles
  *
@@ -36,7 +36,7 @@ class Solver{
  public:
   Solver(Puzzle &p);
   
- public:	
+ public:
   list<vector<int> > solve(vector<int> s);
   list<vector<char> > solve(vector<char> c);
 

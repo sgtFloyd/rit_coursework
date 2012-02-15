@@ -97,402 +97,402 @@ import java.util.ArrayList;
  * @author Henryk Tunguz
  */
 public class Appointment implements Serializable, Comparable<Appointment> {
-	// instance variables
-	private boolean confirmed = false;;
-	ArrayList<Note> notes;
-	private String title;
-	private String date;
-	private String location;
-	private int priority;
-	private long startTime;
-	private long endTime;
-	private String description;
-	private boolean recurring;
-	private int typeOfRecurring;
-	private boolean[] daysOfWeek;
-	private ArrayList<String> exceptDates;
-	private int N;
-	private boolean fullDay;
-	private boolean emailAlarm;
-	private boolean visibleAlarm;
-	static final long serialVersionUID = 123;
-	private boolean alarmed;
-	
-	// constructor
-	public Appointment(String title, String date, String location, 
-			int priority, long startTime, long endTime, String description,
-			boolean recurring, int typeOfRecurring, boolean[] daysOfWeek, 
-			ArrayList<String> exceptDates, int N,
-			boolean fullDay, boolean confirmed, boolean emailAlarm,
-			boolean visibleAlarm) {
-		
-		this.title = title;
-		this.date = date;
-		this.location = location;
-		this.priority = priority;
-		this.startTime = startTime;
-		this.endTime = endTime;
-		this.description = description;
-		this.recurring = recurring;
-		this.typeOfRecurring = typeOfRecurring;
-		this.daysOfWeek = daysOfWeek;
-		this.exceptDates = exceptDates;
-		this.N = N;
-		this.fullDay = fullDay;
-		this.confirmed = confirmed;
-		this.emailAlarm = emailAlarm;
-		this.visibleAlarm = visibleAlarm;
-		notes = new ArrayList<Note> ();
-		alarmed = false;
-	}
-	
-	public Appointment(Appointment a) {
-		this.title = a.getTitle();
-		this.date = a.getDate();
-		this.location = a.getLocation();
-		this.priority = a.getPriority();
-		this.startTime = a.getStartTime();
-		this.endTime = a.getEndTime();
-		this.description = a.getDesc();
-		this.recurring = a.getRecurring();
-		this.daysOfWeek = a.getBoolDaysOfWeek();
-		this.exceptDates = a.getExceptDates();
-		this.N = a.getN();
-		this.fullDay = a.getFullDay();
-		this.confirmed = a.getConfirmed();
-	}
-	// accessors
-	
-	/** getTitle returns the title of the Appointment
-	 *
-	 * @return the title of the appointment
-	 */
-	public String getTitle() {
-		return title;
-	}
-	
-	/** getDate returns the date for the Appointment
-	 *
-	 * @return date represented as a String
-	 */
-	public String getDate() {
-		return date;
-	}
-	
-	/**  getLocation returns the location of which the appointment
-	 * is occurring at
-	 *  
-	 * @return  a location of this appointment
-	 */
-	public String getLocation() {
-		return location;
-	}
+    // instance variables
+    private boolean confirmed = false;;
+    ArrayList<Note> notes;
+    private String title;
+    private String date;
+    private String location;
+    private int priority;
+    private long startTime;
+    private long endTime;
+    private String description;
+    private boolean recurring;
+    private int typeOfRecurring;
+    private boolean[] daysOfWeek;
+    private ArrayList<String> exceptDates;
+    private int N;
+    private boolean fullDay;
+    private boolean emailAlarm;
+    private boolean visibleAlarm;
+    static final long serialVersionUID = 123;
+    private boolean alarmed;
+    
+    // constructor
+    public Appointment(String title, String date, String location, 
+            int priority, long startTime, long endTime, String description,
+            boolean recurring, int typeOfRecurring, boolean[] daysOfWeek, 
+            ArrayList<String> exceptDates, int N,
+            boolean fullDay, boolean confirmed, boolean emailAlarm,
+            boolean visibleAlarm) {
+        
+        this.title = title;
+        this.date = date;
+        this.location = location;
+        this.priority = priority;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.description = description;
+        this.recurring = recurring;
+        this.typeOfRecurring = typeOfRecurring;
+        this.daysOfWeek = daysOfWeek;
+        this.exceptDates = exceptDates;
+        this.N = N;
+        this.fullDay = fullDay;
+        this.confirmed = confirmed;
+        this.emailAlarm = emailAlarm;
+        this.visibleAlarm = visibleAlarm;
+        notes = new ArrayList<Note> ();
+        alarmed = false;
+    }
+    
+    public Appointment(Appointment a) {
+        this.title = a.getTitle();
+        this.date = a.getDate();
+        this.location = a.getLocation();
+        this.priority = a.getPriority();
+        this.startTime = a.getStartTime();
+        this.endTime = a.getEndTime();
+        this.description = a.getDesc();
+        this.recurring = a.getRecurring();
+        this.daysOfWeek = a.getBoolDaysOfWeek();
+        this.exceptDates = a.getExceptDates();
+        this.N = a.getN();
+        this.fullDay = a.getFullDay();
+        this.confirmed = a.getConfirmed();
+    }
+    // accessors
+    
+    /** getTitle returns the title of the Appointment
+     *
+     * @return the title of the appointment
+     */
+    public String getTitle() {
+        return title;
+    }
+    
+    /** getDate returns the date for the Appointment
+     *
+     * @return date represented as a String
+     */
+    public String getDate() {
+        return date;
+    }
+    
+    /**  getLocation returns the location of which the appointment
+     * is occurring at
+     *  
+     * @return  a location of this appointment
+     */
+    public String getLocation() {
+        return location;
+    }
 
-	/** getPriority returns the priority of the appointment,
-	 * be it 0 (Low), 1(Medium), or 2(High)
-	 * 
-	 * @return priority of this appointment
-	 */
-	public int getPriority() {
-		return priority;
-	}
+    /** getPriority returns the priority of the appointment,
+     * be it 0 (Low), 1(Medium), or 2(High)
+     * 
+     * @return priority of this appointment
+     */
+    public int getPriority() {
+        return priority;
+    }
 
-	/** getStartTime returns the start time for the appointment
-	 * 
-	 * @return starting time of this appointment 
-	 */
-	public long getStartTime() {
-		return startTime;
-	}
-	
-	/** getEndTime returns the end time for the appointment
-	 * 
-	 * @return ending time of this appointment
-	 */	
-	public long getEndTime() {
-		return endTime;
-	}
-	
-	/** getDesc returns the description of the appointment
-	 * 
-	 * @return description of the appointment
-	 */
-	public String getDesc() {
-		return description;
-	}
-	
-	/** the toString returns the appointment as a String,
-	 * showing all of it's data fields. (title, date, start time,
-	 * end time, priority, description, recurring, type of recurring,
-	 * 
-	 * Represents this appointment as a String
-	 *
-	 * @return  this appointment as a String   
-	 */
-	public String toString() {
-		return "title: "  + title + "\ndate: " + date + "\nStart time: " + startTime +
-		"\nEnd time: " + endTime +
-		"\npriority: " + priority +
-		"\ndescription: " + description + 
-		"\nisRecurring: " + recurring +
-		"\ntype of recurring: " + typeOfRecurring +
-		"\nEnd time: " + endTime + "\npriority: " + priority +
-		"\ndescription: " + description + "\n"; 
-	}
+    /** getStartTime returns the start time for the appointment
+     * 
+     * @return starting time of this appointment 
+     */
+    public long getStartTime() {
+        return startTime;
+    }
+    
+    /** getEndTime returns the end time for the appointment
+     * 
+     * @return ending time of this appointment
+     */ 
+    public long getEndTime() {
+        return endTime;
+    }
+    
+    /** getDesc returns the description of the appointment
+     * 
+     * @return description of the appointment
+     */
+    public String getDesc() {
+        return description;
+    }
+    
+    /** the toString returns the appointment as a String,
+     * showing all of it's data fields. (title, date, start time,
+     * end time, priority, description, recurring, type of recurring,
+     * 
+     * Represents this appointment as a String
+     *
+     * @return  this appointment as a String   
+     */
+    public String toString() {
+        return "title: "  + title + "\ndate: " + date + "\nStart time: " + startTime +
+        "\nEnd time: " + endTime +
+        "\npriority: " + priority +
+        "\ndescription: " + description + 
+        "\nisRecurring: " + recurring +
+        "\ntype of recurring: " + typeOfRecurring +
+        "\nEnd time: " + endTime + "\npriority: " + priority +
+        "\ndescription: " + description + "\n"; 
+    }
 
-	
-	// mutators
-	
-	/** the setTitle sets a new title
-	 * 
-	 * @param newTitle the new title to be set
-	 */
-	public void setTitle(String newTitle){
-		title = newTitle;
-	}
-	
-	/** the setDate sets a new date
-	 * 
-	 * @param newDate the new date to be set
-	 */
-	public void setDate(String newDate) {
-		date = newDate;
-	}
+    
+    // mutators
+    
+    /** the setTitle sets a new title
+     * 
+     * @param newTitle the new title to be set
+     */
+    public void setTitle(String newTitle){
+        title = newTitle;
+    }
+    
+    /** the setDate sets a new date
+     * 
+     * @param newDate the new date to be set
+     */
+    public void setDate(String newDate) {
+        date = newDate;
+    }
 
-	/** the setLocation sets a new location
-	 * 
-	 * @param newLoc the new location to be set
-	 */
-	public void setLocation(String newLoc) {
-		location = newLoc;
-	}
+    /** the setLocation sets a new location
+     * 
+     * @param newLoc the new location to be set
+     */
+    public void setLocation(String newLoc) {
+        location = newLoc;
+    }
 
-	/** the setPriority sets a new priority
-	 * 
-	 * @param newTitle the new title to be set
-	 */
-	public void setPriority(int newPriority) {
-		priority = newPriority;
-	}
+    /** the setPriority sets a new priority
+     * 
+     * @param newTitle the new title to be set
+     */
+    public void setPriority(int newPriority) {
+        priority = newPriority;
+    }
 
-	/** the setStartTime sets a new start time
-	 * 
-	 * @param newTime the new start time to be set
-	 */
-	public void setStartTime(long newTime) {
-		startTime = newTime;
-	}
-	
-	/** the setEndTime sets a new end time
-	 * 
-	 * @param newTime the new end time to be set
-	 */
-	public void setEndTime(long newTime) {
-		endTime = newTime;
-	}
+    /** the setStartTime sets a new start time
+     * 
+     * @param newTime the new start time to be set
+     */
+    public void setStartTime(long newTime) {
+        startTime = newTime;
+    }
+    
+    /** the setEndTime sets a new end time
+     * 
+     * @param newTime the new end time to be set
+     */
+    public void setEndTime(long newTime) {
+        endTime = newTime;
+    }
 
-	/** the setDesc sets a new description
-	 * 
-	 * @param newDesc the new description to be set
-	 */
-	public void setDesc(String newDesc) {
-		description = newDesc;
-	}
-	
-	/** the getRecurring returns whether or not the
-	 * appointment is recurring
-	 *
-	 *@return recurring  	is appointment recurring? 
-	 */
-	public boolean getRecurring(){
-		return recurring;
-	}
-	
-	/**the typeRecuring returns what type of recurring the 
-	 * appointment is, if it is recurring every day, weekly,
-	 * nth day of month or week etc.
-	 * 
-	 * @return typeOfRecurring 	the type of recurring the appointment is
-	 */
-	public int typeRecurring() {
-		return typeOfRecurring;
-	}
-	
-	/** getBoolDaysOfWeek returns a boolean array 
-	 * describing whether or not each day is true for recurring
-	 * 
-	 * @return daysOfWeek 	array of booleans describing recurring
-	 */
-	public boolean[] getBoolDaysOfWeek(){
-		return daysOfWeek;
-	}
-	
-	/**getExceptDates returns an ArrayList of exception dates
-	 * that represent which dates from a normally recurring series
-	 * are not recurring and for a specific date
-	 * 
-	 * @return exceptDates 	the ArrayList of exception dates
-	 */
-	public ArrayList<String> getExceptDates(){
-		return exceptDates;
-	}
-	
-	
-	/**
-	 * @param date date to be added to except dates
-	 */
-	public void addExceptDate(String date) {
-		exceptDates.add(date);
-	}
-	/**
-	 * @return N, the number used for recurring appointments
-	 */
-	public int getN() { 
-		return N;
-	}
-	/**
-	 * @return true if appointment is confirmed
-	 */
-	public boolean getConfirmed(){
-		return confirmed;
-	}
-	/**
-	 * @param bool boolean value to set recurring status
-	 */
-	public void setRecurring(boolean bool){
-		recurring = bool;
-	}
-	/**
-	 * @param x type of recurring
-	 * 				0 for Days of week
-	 * 				1 for Every N Days
-	 * 				2 for Nth day of month
-	 * 				3 for Nth Mon/Tues of month
-	 */
-	public void setTypeRecurring(int x){
-		typeOfRecurring = x;
-	}
-	/**
-	 * @param x	 sets the boolean array representing the recurring values
-	 * on the days of the week
-	 */
-	public void setBoolDaysOfWeek(boolean[] x){
-		daysOfWeek = x;
-	}
-	/**
-	 * @param x sets the except dates for this appointment
-	 */
-	public void setExceptDates(ArrayList<String> x){
-		exceptDates = x;
-	}
-	/**
-	 * @return true if this is a full day appointment
-	 */
-	public boolean getFullDay() {
-		return fullDay;
-	}
-	/**
-	 * @param f boolean value to set to full day
-	 */
-	public void setFullDay(boolean f) {
-		fullDay = f;
-	}
-	/**
-	 * @return an ArrayList of the notes for this appointment
-	 */
-	public ArrayList<Note> getNotes(){
-		return notes;
-	}
-	/**
-	 * @param note the note to be deleted from this appointment
-	 */
-	public void deleteNote(Note note){
-		notes.remove(note);
-	}
-	/**
-	 * @param note the note to be added to this appointment
-	 */
-	public void addNote(Note note){
-		notes.add(note);
-	}
-	/**
-	 * @param b boolean value to set for confirmed
-	 */
-	public void setConfirmed(boolean b){
-		confirmed = b;
-	}
-	/**
-	 * @param b boolean value to be set for email alarm
-	 */
-	public void setEmailAlarm(boolean b) {
-		emailAlarm = b;
-	}
-	/**
-	 * @param b boolean value to be set for visible alarm
-	 */
-	public void setVisibleAlarm(boolean b){
-		visibleAlarm = b;
-	}
-	/**
-	 * @return true is this appointment has an email alarm
-	 */
-	public boolean getEmailAlarm() {
-		return emailAlarm;
-	}
-	/**
-	 * @return true if this appointment hasa visible alarm
-	 */
-	public boolean getVisibleAlarm() {
-		return visibleAlarm;
-	}
-	/**
-	 * @return true if this appointment has any alarm
-	 */
-	public boolean getAlarmed() {
-		return alarmed;
-	}
-	/**
-	 * @param b value to set alarmed
-	 */
-	public void setAlarmed(boolean b) {
-		alarmed = b; 
-	}
+    /** the setDesc sets a new description
+     * 
+     * @param newDesc the new description to be set
+     */
+    public void setDesc(String newDesc) {
+        description = newDesc;
+    }
+    
+    /** the getRecurring returns whether or not the
+     * appointment is recurring
+     *
+     *@return recurring     is appointment recurring? 
+     */
+    public boolean getRecurring(){
+        return recurring;
+    }
+    
+    /**the typeRecuring returns what type of recurring the 
+     * appointment is, if it is recurring every day, weekly,
+     * nth day of month or week etc.
+     * 
+     * @return typeOfRecurring  the type of recurring the appointment is
+     */
+    public int typeRecurring() {
+        return typeOfRecurring;
+    }
+    
+    /** getBoolDaysOfWeek returns a boolean array 
+     * describing whether or not each day is true for recurring
+     * 
+     * @return daysOfWeek   array of booleans describing recurring
+     */
+    public boolean[] getBoolDaysOfWeek(){
+        return daysOfWeek;
+    }
+    
+    /**getExceptDates returns an ArrayList of exception dates
+     * that represent which dates from a normally recurring series
+     * are not recurring and for a specific date
+     * 
+     * @return exceptDates  the ArrayList of exception dates
+     */
+    public ArrayList<String> getExceptDates(){
+        return exceptDates;
+    }
+    
+    
+    /**
+     * @param date date to be added to except dates
+     */
+    public void addExceptDate(String date) {
+        exceptDates.add(date);
+    }
+    /**
+     * @return N, the number used for recurring appointments
+     */
+    public int getN() { 
+        return N;
+    }
+    /**
+     * @return true if appointment is confirmed
+     */
+    public boolean getConfirmed(){
+        return confirmed;
+    }
+    /**
+     * @param bool boolean value to set recurring status
+     */
+    public void setRecurring(boolean bool){
+        recurring = bool;
+    }
+    /**
+     * @param x type of recurring
+     *              0 for Days of week
+     *              1 for Every N Days
+     *              2 for Nth day of month
+     *              3 for Nth Mon/Tues of month
+     */
+    public void setTypeRecurring(int x){
+        typeOfRecurring = x;
+    }
+    /**
+     * @param x  sets the boolean array representing the recurring values
+     * on the days of the week
+     */
+    public void setBoolDaysOfWeek(boolean[] x){
+        daysOfWeek = x;
+    }
+    /**
+     * @param x sets the except dates for this appointment
+     */
+    public void setExceptDates(ArrayList<String> x){
+        exceptDates = x;
+    }
+    /**
+     * @return true if this is a full day appointment
+     */
+    public boolean getFullDay() {
+        return fullDay;
+    }
+    /**
+     * @param f boolean value to set to full day
+     */
+    public void setFullDay(boolean f) {
+        fullDay = f;
+    }
+    /**
+     * @return an ArrayList of the notes for this appointment
+     */
+    public ArrayList<Note> getNotes(){
+        return notes;
+    }
+    /**
+     * @param note the note to be deleted from this appointment
+     */
+    public void deleteNote(Note note){
+        notes.remove(note);
+    }
+    /**
+     * @param note the note to be added to this appointment
+     */
+    public void addNote(Note note){
+        notes.add(note);
+    }
+    /**
+     * @param b boolean value to set for confirmed
+     */
+    public void setConfirmed(boolean b){
+        confirmed = b;
+    }
+    /**
+     * @param b boolean value to be set for email alarm
+     */
+    public void setEmailAlarm(boolean b) {
+        emailAlarm = b;
+    }
+    /**
+     * @param b boolean value to be set for visible alarm
+     */
+    public void setVisibleAlarm(boolean b){
+        visibleAlarm = b;
+    }
+    /**
+     * @return true is this appointment has an email alarm
+     */
+    public boolean getEmailAlarm() {
+        return emailAlarm;
+    }
+    /**
+     * @return true if this appointment hasa visible alarm
+     */
+    public boolean getVisibleAlarm() {
+        return visibleAlarm;
+    }
+    /**
+     * @return true if this appointment has any alarm
+     */
+    public boolean getAlarmed() {
+        return alarmed;
+    }
+    /**
+     * @param b value to set alarmed
+     */
+    public void setAlarmed(boolean b) {
+        alarmed = b; 
+    }
 
-	/* (non-Javadoc)
-	 * @see java.lang.Comparable#compareTo(java.lang.Object)
-	 */
-	//@Override
-	public int compareTo(Appointment that) {
-		//if this is full day and that isn't
-		if (this.getFullDay() && !that.getFullDay()){
-			return -1;
-		//if that is full day and this isn't
-		} else if (!this.getFullDay() && that.getFullDay()){
-			return 1;
-		//if this and that are both full days
-		} else if (this.getFullDay() && that.getFullDay()){
-			return this.getTitle().compareTo(that.getTitle());
-		//if neither this nor that are full days
-		} else {
-			//if this starts before that
-			if(this.getStartTime() < that.getStartTime()){
-				return -1;
-			//if this starts after that
-			} else if (this.getStartTime() > that.getStartTime()){
-				return 1;
-			//if start times are equal
-			} else {
-				//if this ends after that
-				if (this.getEndTime() > that.getEndTime()){
-					return -1;
-				//if this ends before that
-				} else if (this.getEndTime() < that.getEndTime()){
-					return 1;
-				//if end times are equal
-				} else {
-					return this.getTitle().compareTo(that.getTitle());
-				}
-			}
-		}
-	}
+    /* (non-Javadoc)
+     * @see java.lang.Comparable#compareTo(java.lang.Object)
+     */
+    //@Override
+    public int compareTo(Appointment that) {
+        //if this is full day and that isn't
+        if (this.getFullDay() && !that.getFullDay()){
+            return -1;
+        //if that is full day and this isn't
+        } else if (!this.getFullDay() && that.getFullDay()){
+            return 1;
+        //if this and that are both full days
+        } else if (this.getFullDay() && that.getFullDay()){
+            return this.getTitle().compareTo(that.getTitle());
+        //if neither this nor that are full days
+        } else {
+            //if this starts before that
+            if(this.getStartTime() < that.getStartTime()){
+                return -1;
+            //if this starts after that
+            } else if (this.getStartTime() > that.getStartTime()){
+                return 1;
+            //if start times are equal
+            } else {
+                //if this ends after that
+                if (this.getEndTime() > that.getEndTime()){
+                    return -1;
+                //if this ends before that
+                } else if (this.getEndTime() < that.getEndTime()){
+                    return 1;
+                //if end times are equal
+                } else {
+                    return this.getTitle().compareTo(that.getTitle());
+                }
+            }
+        }
+    }
 }

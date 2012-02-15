@@ -91,5 +91,4 @@ int main( int argc, const char *argv[] ) {
     l.dispF(answer, os);
   }
 
-
 }
